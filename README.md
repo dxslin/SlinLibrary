@@ -37,3 +37,6 @@ SlinDialog.showDialog(getSupportFragmentManager(), viewHolder);
 ![消息确认框](img/消息确认框.png "消息确认框")
 
 如果你想使用其他界面，只需要继承DialogViewHolder设置新的界面
+
+注意：目前只提供了AndroidX，如果不是使用AndroidX请勿使用
+
