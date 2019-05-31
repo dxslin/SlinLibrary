@@ -3,6 +3,22 @@
 封装了一个通用的DialogFragment。
 
 使用方式：
+
+在你的build.gradle添加"**maven { url 'https://jitpack.io' }**"
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+添加依赖
+```
+implementation 'com.github.dxslin:SlinDialog:v0.1'
+```
+
+弹出消息确认框：
 ```java
 ConfirmDialogViewHolder viewHolder = new ConfirmDialogViewHolder.Builder()
         .msg("这是消息")
