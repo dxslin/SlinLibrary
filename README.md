@@ -15,7 +15,7 @@ ConfirmDialogViewHolder viewHolder = new ConfirmDialogViewHolder.Builder()
             dialog.dismiss();
         }))
         .build();
-DialogHelper.showDialog(getSupportFragmentManager(), viewHolder);
+SlinDialog.showDialog(getSupportFragmentManager(), viewHolder);
 ```
 效果图：
 ![消息确认框](img/消息确认框.png "消息确认框")

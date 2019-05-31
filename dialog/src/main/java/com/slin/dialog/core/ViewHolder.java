@@ -1,4 +1,4 @@
-package com.slin.dialog;
+package com.slin.dialog.core;
 
 import android.graphics.drawable.Drawable;
 import android.util.SparseArray;

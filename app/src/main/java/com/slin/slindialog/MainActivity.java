@@ -1,13 +1,13 @@
 package com.slin.slindialog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.slin.dialog.ConfirmDialogViewHolder;
-import com.slin.dialog.DialogHelper;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.slin.dialog.SlinDialog;
+import com.slin.dialog.viewholder.ConfirmDialogViewHolder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }))
                 .build();
-        DialogHelper.showDialog(getSupportFragmentManager(), viewHolder);
+        SlinDialog.showDialog(getSupportFragmentManager(), viewHolder);
     }
 
 }

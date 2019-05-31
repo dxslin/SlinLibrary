@@ -1,4 +1,4 @@
-package com.slin.dialog;
+package com.slin.dialog.core;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ public abstract class DialogViewHolder {
 
     @LayoutRes
     protected int mLayoutResId;
-    protected BaseDialog mDialog;
+    protected BaseSlinDialog mDialog;
     private ViewHolder mViewHolder;
 
     public DialogViewHolder(@LayoutRes int layoutResId){
@@ -34,7 +34,7 @@ public abstract class DialogViewHolder {
 
     protected abstract void onViewConverted(View view, ViewHolder helper);
 
-    public void attach(BaseDialog dialog){
+    public void attach(BaseSlinDialog dialog) {
         this.mDialog = dialog;
     }
 
@@ -42,7 +42,7 @@ public abstract class DialogViewHolder {
         mDialog = null;
     }
 
-    public BaseDialog getDialog() {
+    public BaseSlinDialog getDialog() {
         return mDialog;
     }
 

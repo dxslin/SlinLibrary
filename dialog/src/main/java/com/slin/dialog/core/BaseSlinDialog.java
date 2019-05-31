@@ -1,4 +1,4 @@
-package com.slin.dialog;
+package com.slin.dialog.core;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import androidx.annotation.StyleRes;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.slin.dialog.R;
 import com.slin.dialog.utils.ScreenUtils;
 
 
@@ -24,9 +25,9 @@ import com.slin.dialog.utils.ScreenUtils;
  * date: 2019-05-24
  * description: dialog基类
  */
-public class BaseDialog extends DialogFragment {
+public class BaseSlinDialog extends DialogFragment {
 
-    private static final String TAG = BaseDialog.class.getSimpleName();
+    private static final String TAG = BaseSlinDialog.class.getSimpleName();
 
     private Context mContext;
     private float mDimAmount = 0.5f;    //外部阴影
@@ -39,8 +40,8 @@ public class BaseDialog extends DialogFragment {
 
     private DialogViewHolder mDialogViewHolder;
 
-    public static BaseDialog newInstance() {
-        return new BaseDialog();
+    public static BaseSlinDialog newInstance() {
+        return new BaseSlinDialog();
     }
 
     @Override
@@ -106,7 +107,7 @@ public class BaseDialog extends DialogFragment {
     }
 
 
-    public BaseDialog setDialogViewHolder(DialogViewHolder mDialogViewHolder) {
+    public BaseSlinDialog setDialogViewHolder(DialogViewHolder mDialogViewHolder) {
         this.mDialogViewHolder = mDialogViewHolder;
         return this;
     }
@@ -117,7 +118,7 @@ public class BaseDialog extends DialogFragment {
      * @param dimAmount 昏暗度（0.0 - 1.0）
      * @return this dialog
      */
-    public BaseDialog setDimAmount(@FloatRange(from = 0, to = 1) float dimAmount){
+    public BaseSlinDialog setDimAmount(@FloatRange(from = 0, to = 1) float dimAmount) {
         this.mDimAmount = dimAmount;
         return this;
     }
@@ -127,7 +128,7 @@ public class BaseDialog extends DialogFragment {
      * @param showBottomEnable true 显示在底部
      * @return this dialog
      */
-    public BaseDialog setShowBottomEnable(boolean showBottomEnable) {
+    public BaseSlinDialog setShowBottomEnable(boolean showBottomEnable) {
         isShowBottomEnable = showBottomEnable;
         return this;
     }
@@ -138,7 +139,7 @@ public class BaseDialog extends DialogFragment {
      * @param height height
      * @return this dialog
      */
-    public BaseDialog setSize(int width, int height){
+    public BaseSlinDialog setSize(int width, int height) {
         this.mWidth = width;
         this.mHeight = height;
         return this;
@@ -149,7 +150,7 @@ public class BaseDialog extends DialogFragment {
      * @param mMargin margin
      * @return this dialog
      */
-    public BaseDialog setMargin(int mMargin) {
+    public BaseSlinDialog setMargin(int mMargin) {
         this.mMargin = mMargin;
         return this;
     }
@@ -159,7 +160,7 @@ public class BaseDialog extends DialogFragment {
      * @param animStyle anim resource
      * @return this dialog
      */
-    public BaseDialog setAnimStyle(@StyleRes int animStyle){
+    public BaseSlinDialog setAnimStyle(@StyleRes int animStyle) {
         this.mAnimStyle = animStyle;
         return this;
     }
@@ -169,7 +170,7 @@ public class BaseDialog extends DialogFragment {
      * @param outCancel true,click to dismiss
      * @return this dialog
      */
-    public BaseDialog setOutCancel(boolean outCancel){
+    public BaseSlinDialog setOutCancel(boolean outCancel) {
         this.mOutCancel = outCancel;
         return this;
     }
@@ -179,7 +180,7 @@ public class BaseDialog extends DialogFragment {
      * show dialog
      * @param manager fragment manager
      */
-    public BaseDialog show(FragmentManager manager){
+    public BaseSlinDialog show(FragmentManager manager) {
         super.show(manager, String.valueOf(System.currentTimeMillis()));
         return this;
     }

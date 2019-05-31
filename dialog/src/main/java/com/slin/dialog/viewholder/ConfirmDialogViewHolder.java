@@ -1,7 +1,12 @@
-package com.slin.dialog;
+package com.slin.dialog.viewholder;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
+
+import com.slin.dialog.R;
+import com.slin.dialog.core.BaseSlinDialog;
+import com.slin.dialog.core.DialogViewHolder;
+import com.slin.dialog.core.ViewHolder;
 
 /**
  * author: slin
@@ -73,11 +78,11 @@ public class ConfirmDialogViewHolder extends DialogViewHolder {
     }
 
     public interface OnCancelListener {
-        void onCancel(View view, BaseDialog dialog);
+        void onCancel(View view, BaseSlinDialog dialog);
     }
 
     public interface OnConfirmListener {
-        void onConfirm(View view, BaseDialog dialog);
+        void onConfirm(View view, BaseSlinDialog dialog);
     }
 
 
