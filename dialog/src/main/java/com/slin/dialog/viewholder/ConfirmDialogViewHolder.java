@@ -28,20 +28,20 @@ public class ConfirmDialogViewHolder extends DialogViewHolder {
     }
 
     @Override
-    public void onViewConverted(View view, ViewHolder helper) {
+    public void onViewConverted(ViewHolder helper, BaseSlinDialog dialog) {
         helper.setText(R.id.tv_dialog_title, title)
                 .setText(R.id.tv_dialog_msg, msg)
                 .setText(R.id.btn_dialog_ok, confirmText)
                 .setText(R.id.btn_dialog_cancel, cancelText)
                 .setOnClickListener(R.id.btn_dialog_cancel, v -> {
-                    mDialog.dismiss();
+                    dialog.dismiss();
                     if (cancelListener != null) {
-                        cancelListener.onCancel(v, mDialog);
+                        cancelListener.onCancel(v, dialog);
                     }
                 })
                 .setOnClickListener(R.id.btn_dialog_ok, v -> {
                     if (confirmListener != null) {
-                        confirmListener.onConfirm(v, mDialog);
+                        confirmListener.onConfirm(v, dialog);
                     }
                 });
         if (icon != null) {

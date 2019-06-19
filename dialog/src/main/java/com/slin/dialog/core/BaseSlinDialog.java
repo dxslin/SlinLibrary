@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.slin.dialog.R;
+import com.slin.dialog.utils.Preconditions;
 import com.slin.dialog.utils.ScreenUtils;
 
 
@@ -181,6 +182,7 @@ public class BaseSlinDialog extends DialogFragment {
      * @param manager fragment manager
      */
     public BaseSlinDialog show(FragmentManager manager) {
+        Preconditions.checkNotNull(mDialogViewHolder, "DialogViewHolder is required");
         super.show(manager, String.valueOf(System.currentTimeMillis()));
         return this;
     }

@@ -17,8 +17,12 @@ public class SlinDialog {
                 .setDialogViewHolder(viewHolder);
     }
 
-    public static BaseSlinDialog showDialog(FragmentManager manager, DialogViewHolder viewHolder) {
-        return BaseSlinDialog.newInstance()
+    public static BaseSlinDialog newInstance() {
+        return BaseSlinDialog.newInstance();
+    }
+
+    public static void showDialog(FragmentManager manager, DialogViewHolder viewHolder) {
+        BaseSlinDialog.newInstance()
                 .setDialogViewHolder(viewHolder)
                 .setOutCancel(false)
                 .show(manager);

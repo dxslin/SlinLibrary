@@ -8,12 +8,14 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.slin.dialog.utils.Preconditions;
+
 /**
  * author: slin
  * date: 2019-05-29
  * description: dialog ViewHolder
  */
-public abstract class DialogViewHolder {
+public abstract class DialogViewHolder implements OnViewConvertedListener {
 
     @LayoutRes
     protected int mLayoutResId;
@@ -28,11 +30,9 @@ public abstract class DialogViewHolder {
     public View onConvertView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container){
         View view = inflater.inflate(mLayoutResId, container, false);
         mViewHolder.setConvertView(view);
-        onViewConverted(view, mViewHolder);
+        onViewConverted(mViewHolder, mDialog);
         return view;
     }
-
-    protected abstract void onViewConverted(View view, ViewHolder helper);
 
     public void attach(BaseSlinDialog dialog) {
         this.mDialog = dialog;
@@ -44,6 +44,37 @@ public abstract class DialogViewHolder {
 
     public BaseSlinDialog getDialog() {
         return mDialog;
+    }
+
+    /**
+     * 通过Builder创建 DialogViewHolder，避免再次创建一个DialogViewHolder文件
+     */
+    public static class Builder {
+
+        private int layoutResId;
+        private OnViewConvertedListener onViewConvertedListener;
+
+        public Builder layoutResId(@LayoutRes int layoutResId) {
+            this.layoutResId = layoutResId;
+            return this;
+        }
+
+        public Builder onViewConvertedListener(OnViewConvertedListener listener) {
+            this.onViewConvertedListener = listener;
+            return this;
+        }
+
+        public DialogViewHolder build() {
+            Preconditions.checkNotNull(layoutResId, "layoutResId is required");
+            Preconditions.checkNotNull(onViewConvertedListener, "onViewConvertedListener is required");
+            return new DialogViewHolder(layoutResId) {
+                @Override
+                public void onViewConverted(ViewHolder helper, BaseSlinDialog dialog) {
+                    onViewConvertedListener.onViewConverted(helper, dialog);
+                }
+            };
+        }
+
     }
 
 }
