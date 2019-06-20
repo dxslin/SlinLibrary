@@ -1,24 +1,40 @@
+
 /**
  * author: slin
  * date: 2019-06-19
- * description: 
+ * description: 配置文件处理，可以公开的属性放在public.properties里面，
+ *              私密的属性放在local.properties，
+ *              如果两个文件都存在的话，优先使用local.properties里面的配置
  */
 
-Properties localProperties = new Properties()
-localProperties.load(rootProject.file('local.properties').newDataInputStream())
+Properties localProperties = null
+File localFile = rootProject.file('local.properties')
+if(localFile.exists()) {
+    localProperties = new Properties()
+    localProperties.load(localFile.newDataInputStream())
+}
 Properties publicProperties = new Properties()
 publicProperties.load(rootProject.file('public.properties').newDataInputStream())
 def configProperties = {
     String key ->
+        String value
         if(localProperties != null){
-            return localProperties.getProperty(key)
-        } else {
-            return publicProperties.getProperty(key)
+            value = localProperties.getProperty(key)
         }
+
+        if(value == null || value.isEmpty()){
+            value = publicProperties.getProperty(key)
+        }
+
+        if(value == null || value.isEmpty()){
+            throw new RuntimeException("not found the value of " + key)
+        }
+        return value
 }
 
 ext{
     configProperty = {
-        String key -> configProperties(key)
+        String key ->
+            return configProperties(key)
     }
 }

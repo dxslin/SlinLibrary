@@ -1,18 +1,17 @@
 apply plugin: 'com.android.application'
-apply from:rootProject.getRootDir().getAbsolutePath()+"/ConfigProperties.gradle"
+apply from: "../ConfigProperties.gradle"
 
 android {
     signingConfigs {
         release {
             storeFile file(configProperty('sign_file'))
-//            storeFile file(slinProperties.getProperty('sign_file'))
-//            storeFile file(publicProperties.getProperty('sign_file')|localProperties.getProperty('sign_file'))
             storePassword configProperty('store_password')
             keyAlias = configProperty('key_alias')
             keyPassword configProperty('key_password')
         }
     }
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.slin.slindialog"
         minSdkVersion 21
@@ -45,6 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     debugImplementation project(path: ':dialog')
-    releaseImplementation 'com.github.dxslin:SlinDialog:0.2'
+    releaseImplementation 'com.github.dxslin:SlinDialog:1.0'
 
 }
