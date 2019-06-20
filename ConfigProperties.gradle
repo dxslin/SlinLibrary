@@ -1,0 +1,24 @@
+/**
+ * author: slin
+ * date: 2019-06-19
+ * description: 
+ */
+
+Properties localProperties = new Properties()
+localProperties.load(rootProject.file('local.properties').newDataInputStream())
+Properties publicProperties = new Properties()
+publicProperties.load(rootProject.file('public.properties').newDataInputStream())
+def configProperties = {
+    String key ->
+        if(localProperties != null){
+            return localProperties.getProperty(key)
+        } else {
+            return publicProperties.getProperty(key)
+        }
+}
+
+ext{
+    configProperty = {
+        String key -> configProperties(key)
+    }
+}
