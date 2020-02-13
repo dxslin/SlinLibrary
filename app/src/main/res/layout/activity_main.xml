@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:gravity="center"
     tools:context=".MainActivity"
     android:layout_height="match_parent">
+
+    <com.slin.indicator.ViewPagerIndicator
+        android:id="@+id/vpi_advertisingJob"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:vpi_autoArrange="true"
+        app:vpi_cursorColor="@color/highlight_color"
+        app:vpi_cursorHeight="4dp"
+        app:vpi_cursorPadding="10dp"
+        app:vpi_isShowCursor="true"
+        app:vpi_selectTextColor="@color/highlight_color"
+        app:vpi_tabSpacing="20dp"
+        app:vpi_textColor="@color/gray_333333"
+        app:vpi_textSize="14sp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp_resumeListPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btn_confirm_dialog"

@@ -43,7 +43,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    debugImplementation project(path: ':dialog')
-    releaseImplementation 'com.github.dxslin:SlinDialog:0.2.3'
+//    debugImplementation project(path: ':dialog')
+//    releaseImplementation 'com.github.dxslin:SlinDialog:0.2.3'
+    implementation 'com.github.dxslin:SlinDialog:0.2.3'
+    implementation project(path: ':ViewPagerIndicator')
 
 }

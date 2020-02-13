@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ViewPagerIndicator">
+        <attr name="vpi_textSize" format="dimension" />
+        <attr name="vpi_textColor" format="color" />
+        <attr name="vpi_selectTextColor" format="color" />
+        <attr name="vpi_tabSpacing" format="dimension" />
+        <attr name="vpi_autoArrange" format="boolean" />
+        <attr name="vpi_cursorPadding" format="dimension" />
+        <attr name="vpi_cursorColor" format="color" />
+        <attr name="vpi_cursorHeight" format="dimension" />
+        <attr name="vpi_isShowCursor" format="boolean" />
+    </declare-styleable>
+
+</resources>
