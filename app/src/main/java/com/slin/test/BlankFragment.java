@@ -1,4 +1,4 @@
-package com.slin.slindialog;
+package com.slin.test;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
