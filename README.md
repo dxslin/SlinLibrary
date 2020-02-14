@@ -16,6 +16,6 @@ implementation 'com.github.dxslin:SlinDialog:v0.1'
 
 | library  |  引用  |  简介  |
 |---|---|---|
-|  [SlinDialog](./SlinDialog/SlinDialog.md) |  com.github.dxslin.SlinLibrary:SlinDialog:0.3.1  |  一个封装了的DialogFragment  |
-|  [ViewPagerIndicator](./ViewPagerIndicator/ViewPagerIndicator.md) |  com.github.dxslin.SlinLibrary:ViewPagerIndicator:0.3.1  |  一个封装了的DialogFragment  |
+|  [SlinDialog](./SlinDialog/README.md) |  com.github.dxslin.SlinLibrary:SlinDialog:0.3.1  |  一个封装了的DialogFragment  |
+|  [ViewPagerIndicator](ViewPagerIndicator/README.md) |  com.github.dxslin.SlinLibrary:ViewPagerIndicator:0.3.1  |  一个封装了的DialogFragment  |
 
