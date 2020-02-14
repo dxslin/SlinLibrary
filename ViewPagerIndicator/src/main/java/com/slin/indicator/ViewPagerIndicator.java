@@ -13,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by slin on 2020/2/13
@@ -24,7 +28,7 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
         ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private RelativeLayout[] tabArr;// tab数组
-    private String[] tabTexts;// tab标题数组
+    private List<String> tabTitles = new ArrayList<>();// tab标题数组
     private int[] tabTextWidthArr;// tab标题宽度数组
 
     private int currTabPosition;// 当前选中的tab
@@ -35,20 +39,23 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
     private int deviceWidth;// 设备宽度px
     private int baseCursorWidth;// 初始化的游标宽度, 缩放动画每次以此为标准
     private int baseCursorLeftMargin; // 初始化游标的位置，移动时以此为准
-    private boolean autoArrange = true;
+    private boolean autoArrange = false;
     private int textColor = getResources().getColor(R.color.gray_666666); //设置选中字体的颜色
     private int selectTextColor = getResources().getColor(R.color.highlight_color); //设置未选中字体的颜色
     private boolean isShowCursor = true;    //是否显示游标
     private int cursorHeight = 4;           //游标高度
     private int cursorColor = getResources().getColor(R.color.highlight_color);    //游标颜色
 
+    private OnTabSelectedListener onTabSelectedListener;    //tab选中事件
 
     private Context context;
     private ViewPager viewPager;
     private LinearLayout tabLy;// tab的横向线性布局
     private ImageView cursor;// 游标
     private Handler handler = new Handler();
-    private int lastPosition = -1;
+
+    private int lastPosition = -1;  //viewpager上一次滚动时上一次的位置
+
 
     public ViewPagerIndicator(Context context) {
         super(context);
@@ -124,46 +131,18 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
 
     }
 
-    /**
-     * 设置tab文字
-     *
-     * @param tabTexts tab title text
-     */
-    public void setTabTexts(String[] tabTexts) {
-        if (tabTexts == null || tabTexts.length < 1) {
-            throw new IllegalArgumentException("tabTexts不能为空且长度大于1");
-        }
-        this.tabTexts = tabTexts;
-
-        initTabSpacing();
-        initTabs();
-        initCursor();
-    }
-
-    /**
-     * 绑定ViewPager
-     *
-     * @param viewPager viewpager
-     */
-    public void bindViewPager(ViewPager viewPager) {
-        this.viewPager = viewPager;
-        onPageSelected(currTabPosition);// 初始化tab样式和动画
-        if (this.viewPager != null) {
-            this.viewPager.addOnPageChangeListener(this);
-        }
-    }
 
     /**
      * 确定tab间隙长度
      */
     private void initTabSpacing() {
-        tabLength = tabTexts.length;
+        tabLength = tabTitles.size();
         int tabTextsWidth = 0;// tab文本总长度
         TextView tv = new TextView(context);
         tabTextWidthArr = new int[tabLength];
         for (int i = 0; i < tabLength; i++) {
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
-            tabTextWidthArr[i] = (int) tv.getPaint().measureText(tabTexts[i]);
+            tabTextWidthArr[i] = (int) tv.getPaint().measureText(tabTitles.get(i));
             tabTextsWidth += tabTextWidthArr[i];
         }
         int scrollViewWidth = tabTextsWidth + tabLength * tabSpacing;
@@ -192,21 +171,9 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
             tabTextView = tabArr[i].findViewById(R.id.tv_tab);
             tabTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
             tabTextView.setTextColor(textColor);
-            tabTextView.setText(tabTexts[i]);
+            tabTextView.setText(tabTitles.get(i));
             // 添加子tab
             tabLy.addView(tabArr[i], i);
-        }
-    }
-
-    /**
-     * 设置当前Tab点击时事件
-     *
-     * @param position position
-     */
-    private void setTabClick(int position) {
-        // 如果点击的为当前的Tab，则滚回到顶部， 否则切换
-        if (position != currTabPosition) {
-            viewPager.setCurrentItem(position);
         }
     }
 
@@ -217,9 +184,11 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
         if (isShowCursor) {
             cursor.setVisibility(VISIBLE);
             baseCursorWidth = tabTextWidthArr[currTabPosition] + cursorPadding;
+            baseCursorLeftMargin = tabSpacing / 2;
             LinearLayout.LayoutParams cursorLp = (LinearLayout.LayoutParams) cursor.getLayoutParams();
             cursorLp.width = baseCursorWidth;
             cursorLp.height = cursorHeight;
+            cursorLp.leftMargin = baseCursorLeftMargin;
             cursor.setLayoutParams(cursorLp);
             cursor.setBackgroundColor(cursorColor);
         } else {
@@ -228,70 +197,31 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
     }
 
     /**
-     * 设置未选中tab字体的颜色
-     */
-    public void setTextColor(int UnSelectTextColor) {
-        this.textColor = UnSelectTextColor;
-    }
-
-    /**
-     * 设置选中tab字体的颜色
-     */
-    public void setSelectTextColor(int selectTextColor) {
-        this.selectTextColor = selectTextColor;
-    }
-
-    /**
-     * 设置tab字体的大小
-     */
-    public void setTextSize(int textSize) {
-        this.mTextSize = textSize;
-    }
-
-    /**
-     * 设置选中项背景和字体颜色
+     * 切换选中的tab标题
      *
-     * @param position position
+     * @param position 位置
      */
-    private void setTabStyle(int position) {
-        // 还原Tab的背景和字体颜色
-        for (int i = 0; i < tabLength; i++) {
-            ((TextView) tabArr[i].getChildAt(0)).setTextColor(textColor);
+    private void selectTitleTab(final int position) {
+        if (position < 0 || position >= tabTitles.size()) {
+            return;
         }
-        // 改变 选中文本的颜色, 同时红点消失
-        ((TextView) tabArr[position].getChildAt(0)).setTextColor(selectTextColor);
+        currTabPosition = position;
+        setTabStyle(position);// 改变tab字体颜色
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                setTabAnimation(position);
+            }
+        });
     }
 
     /**
-     * 设置tab的动画
+     * 移动下面的游标
      *
-     * @param position position
+     * @param position      tab位置，这个总是游标左边的那个tab位置，不是当前选中的游标位置
+     * @param percentToNext 距离下一个tab的百分比
      */
-    private void setTabAnimation(final int position) {
-        // 选中的tab中心位置到scrollview最左边位置的距离
-        int offset = 0;
-        for (int i = 0; i < position; i++) {
-            offset += tabTextWidthArr[i] + tabSpacing;
-        }
-        offset += (tabTextWidthArr[position] + tabSpacing) / 2;
-        // tab滚动到居中位置
-        int scrollOffset = offset - deviceWidth / 2 <= 0 ? 0 : offset - deviceWidth / 2;
-        smoothScrollTo(scrollOffset, 0);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = (Integer) v.getTag();
-        setTabClick(i);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    private void moveCursor(int position, float percentToNext) {
         LinearLayout.LayoutParams cursorLp = (LinearLayout.LayoutParams) cursor.getLayoutParams();
         if (lastPosition != position) {
             lastPosition = position;
@@ -308,24 +238,155 @@ public class ViewPagerIndicator extends HorizontalScrollView implements
             cursorLp.width = baseCursorWidth;
             cursorLp.leftMargin = baseCursorLeftMargin;
         } else {
-            int offset = (int) ((tabTextWidthArr[position + 1] + cursorPadding - baseCursorWidth) * positionOffset + 0.5);
+            int offset = (int) ((tabTextWidthArr[position + 1] + cursorPadding - baseCursorWidth) * percentToNext + 0.5);
             cursorLp.width = baseCursorWidth + offset;
-            offset = (int) ((tabTextWidthArr[position] + tabSpacing) * positionOffset + 0.5);
+            offset = (int) ((tabTextWidthArr[position] + tabSpacing) * percentToNext + 0.5);
             cursorLp.leftMargin = baseCursorLeftMargin + offset;
         }
         cursor.setLayoutParams(cursorLp);
     }
 
+    /**
+     * 设置选中项背景和字体颜色
+     *
+     * @param position position
+     */
+    private void setTabStyle(int position) {
+        // 还原Tab的背景和字体颜色
+        for (int i = 0; i < tabLength; i++) {
+            ((TextView) tabArr[i].getChildAt(0)).setTextColor(textColor);
+        }
+        // 改变 选中文本的颜色
+        ((TextView) tabArr[position].getChildAt(0)).setTextColor(selectTextColor);
+    }
+
+    /**
+     * 设置tab的动画
+     *
+     * @param position position
+     */
+    private void setTabAnimation(final int position) {
+        // 选中的tab中心位置到scrollview最左边位置的距离
+        int offset = 0;
+        for (int i = 0; i < position; i++) {
+            offset += tabTextWidthArr[i] + tabSpacing;
+        }
+        offset += (tabTextWidthArr[position] + tabSpacing) / 2;
+        // tab滚动到居中位置
+        int scrollOffset = offset - getWidth() / 2 <= 0 ? 0 : offset - getWidth() / 2;
+        smoothScrollTo(scrollOffset, 0);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int i = (Integer) v.getTag();
+        setSelectedTab(i);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        moveCursor(position, positionOffset);
+    }
+
     @Override
     public void onPageSelected(final int position) {
-        currTabPosition = position;
-        setTabStyle(position);// 改变tab字体颜色
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                ViewPagerIndicator.this.setTabAnimation(position);
+        selectTitleTab(position);
+    }
+
+
+    /**
+     * 设置tab文字
+     *
+     * @param tabTitles tab title text
+     */
+    public void setTabTitles(List<String> tabTitles) {
+        if (tabTitles == null || tabTitles.size() < 1) {
+            throw new IllegalArgumentException("tabTexts不能为空且长度大于1");
+        }
+        this.tabTitles.clear();
+        this.tabTitles.addAll(tabTitles);
+
+        initTabSpacing();
+        initTabs();
+        initCursor();
+    }
+
+    /**
+     * 绑定ViewPager
+     *
+     * @param viewPager viewpager
+     */
+    public void bindViewPager(ViewPager viewPager) {
+        this.viewPager = viewPager;
+        onPageSelected(currTabPosition);// 初始化tab样式和动画
+        if (this.viewPager != null) {
+            this.viewPager.addOnPageChangeListener(this);
+        }
+    }
+
+    /**
+     * 设置当前Tab点击时事件
+     *
+     * @param position position
+     */
+    public void setSelectedTab(int position) {
+        // 如果点击的为当前的Tab，则滚回到顶部， 否则切换
+        if (position != currTabPosition) {
+            if (viewPager != null) {
+                viewPager.setCurrentItem(position);
+            } else {
+                //选中切换标题
+                selectTitleTab(position);
+                //切换游标
+                moveCursor(position, 0);
             }
-        });
+            if (onTabSelectedListener != null) {
+                onTabSelectedListener.onTabSelected(position);
+            }
+        }
+    }
+
+    /**
+     * 设置未选中tab字体的颜色
+     */
+    public void setTextColor(@ColorInt int UnSelectTextColor) {
+        this.textColor = UnSelectTextColor;
+    }
+
+    /**
+     * 设置选中tab字体的颜色
+     */
+    public void setSelectTextColor(@ColorInt int selectTextColor) {
+        this.selectTextColor = selectTextColor;
+    }
+
+    /**
+     * 设置tab字体的大小
+     *
+     * @param textSize 字体大小sp
+     */
+    public void setTextSize(int textSize) {
+        this.mTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, context.getResources().getDisplayMetrics());
+    }
+
+    /**
+     * tab选中事件
+     *
+     * @param onTabSelectedListener listener
+     */
+    public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
+        this.onTabSelectedListener = onTabSelectedListener;
+    }
+
+
+    public interface OnTabSelectedListener {
+        void onTabSelected(int position);
     }
 
 }

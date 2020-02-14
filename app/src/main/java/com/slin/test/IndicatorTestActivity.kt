@@ -10,7 +10,7 @@ import java.util.*
 
 class IndicatorTestActivity : AppCompatActivity() {
 
-    val title = arrayOf("销售", "php", "汽车电子开发工程师", "Android", "汽车项目管理", "厂长", "建筑设计师", "服务员")
+    private val title = listOf("销售", "php", "汽车电子开发工程师", "Android", "汽车项目管理", "厂长", "建筑设计师", "服务员")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class IndicatorTestActivity : AppCompatActivity() {
 
         val vpiAdvertisingJob = findViewById<ViewPagerIndicator>(R.id.vpi_advertising_job)
         val vpResumeListPage = findViewById<ViewPager>(R.id.vp_resume_list_page)
-        vpiAdvertisingJob.setTabTexts(title)
+        vpiAdvertisingJob.setTabTitles(title)
         vpiAdvertisingJob.bindViewPager(vpResumeListPage)
 
         val fragments: MutableList<Fragment> = ArrayList(title.size)
