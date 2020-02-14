@@ -22,5 +22,3 @@ allprojects {
 ```
 implementation 'com.github.dxslin:SlinDialog:v0.1'
 ```
-
-![消息确认框](img/消息确认框.png "消息确认框")
