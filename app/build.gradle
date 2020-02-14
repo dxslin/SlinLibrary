@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    testImplementation project(path: ':dialog')
+    testImplementation project(path: ':SlinDialog')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -51,10 +51,10 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 
-    debugImplementation project(path: ':dialog')
+    debugImplementation project(path: ':SlinDialog')
     debugImplementation project(path: ':ViewPagerIndicator')
 
-    releaseImplementation 'com.github.dxslin.SlinDialog:ViewPagerIndicator:0.3'
-    releaseImplementation 'com.github.dxslin.SlinDialog:dialog:0.3'
+    releaseImplementation 'com.github.dxslin.SlinLibrary:ViewPagerIndicator:0.3.1'
+    releaseImplementation 'com.github.dxslin.SlinLibrary:SlinDialog:0.3.1'
 
 }

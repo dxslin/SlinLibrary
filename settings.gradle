@@ -1,1 +1,1 @@
-include ':app', ':dialog', ':ViewPagerIndicator'
+include ':app', ':SlinDialog', ':ViewPagerIndicator'
