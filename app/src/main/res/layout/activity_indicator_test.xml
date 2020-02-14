@@ -8,7 +8,7 @@
     tools:context="com.slin.test.IndicatorTestActivity">
 
     <com.slin.indicator.ViewPagerIndicator
-        android:id="@+id/vpi_advertising_job"
+        android:id="@+id/viewPagerIndicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         app:vpi_autoArrange="true"
@@ -22,7 +22,7 @@
         app:vpi_textSize="14sp" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_resume_list_page"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

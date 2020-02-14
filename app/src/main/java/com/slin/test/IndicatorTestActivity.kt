@@ -10,24 +10,26 @@ import java.util.*
 
 class IndicatorTestActivity : AppCompatActivity() {
 
-    private val title = listOf("销售", "php", "汽车电子开发工程师", "Android", "汽车项目管理", "厂长", "建筑设计师", "服务员")
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_indicator_test)
 
-        val vpiAdvertisingJob = findViewById<ViewPagerIndicator>(R.id.vpi_advertising_job)
-        val vpResumeListPage = findViewById<ViewPager>(R.id.vp_resume_list_page)
-        vpiAdvertisingJob.setTabTitles(title)
-        vpiAdvertisingJob.bindViewPager(vpResumeListPage)
+        val viewPagerIndicator = findViewById<ViewPagerIndicator>(R.id.viewPagerIndicator)
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+
+        val title = listOf("销售", "php", "汽车电子开发工程师", "Android", "汽车项目管理", "厂长", "建筑设计师", "服务员")
+        //设置tab标题
+        viewPagerIndicator.setTabTitles(title)
+        //绑定ViewPager
+        viewPagerIndicator.bindViewPager(viewPager)
 
         val fragments: MutableList<Fragment> = ArrayList(title.size)
         for (element in title) {
             fragments.add(BlankFragment.newInstance(element))
         }
 
-        vpResumeListPage.adapter = object : FragmentStatePagerAdapter(supportFragmentManager,
+        viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager,
                 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(position: Int): Fragment {
                 return fragments[position]

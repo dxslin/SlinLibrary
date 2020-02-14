@@ -1,10 +1,6 @@
-# SlinDialog
+# slin提供的library
 
-封装了一个通用的DialogFragment。
-
-使用方式：
-
-在你的build.gradle添加"**maven { url 'https://jitpack.io' }**"
+使用前请在你的build.gradle添加 `maven { url 'https://jitpack.io' }`，比如
 ```
 allprojects {
     repositories {
@@ -13,30 +9,13 @@ allprojects {
     }
 }
 ```
-添加依赖
+然后根据需要添加依赖，比如
 ```
 implementation 'com.github.dxslin:SlinDialog:v0.1'
 ```
 
-弹出消息确认框：
-```java
-ConfirmDialogViewHolder viewHolder = new ConfirmDialogViewHolder.Builder()
-        .msg("这是消息")
-        .title("标题")
-        .confirmText("确认")
-        .cancelText("取消")
-        .icon(getDrawable(R.drawable.slin))
-        .confirmListener(((view1, dialog) -> {
-            Toast.makeText(this, "确认", Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        }))
-        .build();
-SlinDialog.showDialog(getSupportFragmentManager(), viewHolder);
-```
-效果图：
-![消息确认框](img/消息确认框.png "消息确认框")
-
-如果你想使用其他界面，只需要继承DialogViewHolder设置新的界面
-
-注意：目前只提供了AndroidX，如果不是使用AndroidX请勿使用
+| library  |  引用  |  简介  |
+|---|---|---|
+|  [SlinDialog](./SlinDialog/SlinDialog.md) |  com.github.dxslin.SlinLibrary:SlinDialog:0.3.1  |  一个封装了的DialogFragment  |
+|  [ViewPagerIndicator](./ViewPagerIndicator/ViewPagerIndicator.md) |  com.github.dxslin.SlinLibrary:ViewPagerIndicator:0.3.1  |  一个封装了的DialogFragment  |
 

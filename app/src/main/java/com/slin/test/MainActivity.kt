@@ -17,7 +17,7 @@ import com.slin.test.adapter.TestActivityBean
 class MainActivity : AppCompatActivity() {
 
     private val testActivities = arrayListOf(
-            TestActivityBean(DialogTestActivity::class.java, "SlinDialog", R.mipmap.img_loading),
+            TestActivityBean(DialogTestActivity::class.java, "SlinDialog", R.mipmap.img_timeout),
             TestActivityBean(IndicatorTestActivity::class.java, "ViewPagerIndicator", R.mipmap.img_empty)
     )
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         adapter = TestActivityAdapter(testActivities)
         rvTestActivities.adapter = adapter
         rvTestActivities.layoutManager = GridLayoutManager(this, 2)
-        adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        adapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { _, _, position ->
             startActivity(Intent(this@MainActivity, this@MainActivity.adapter.getItem(position)?.clazz))
         }
 
