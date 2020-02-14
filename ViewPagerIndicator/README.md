@@ -3,7 +3,7 @@
 仿BiliBili的一个tab指示器
 
 效果图：
-![ViewPagerIndicator](../img/ViewPagerIndicator.png "ViewPagerIndicator")
+![ViewPagerIndicator](../img/ViewPagerIndicator.gif "ViewPagerIndicator")
 
 使用方式：
 
