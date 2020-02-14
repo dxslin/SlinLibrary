@@ -1,6 +1,7 @@
 package com.slin.test.adapter
 
 import android.app.Activity
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -16,8 +17,10 @@ class TestActivityAdapter(data: List<TestActivityBean>) :
 
 
     override fun convert(helper: BaseViewHolder, item: TestActivityBean) {
-        helper.setBackgroundRes(R.id.iv_test_img, item.imgRes)
-        helper.setText(R.id.tv_test_name, item.name)
+        helper.getView<TextView>(R.id.tv_test_name).apply {
+            text = item.name
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, item.imgRes, 0, 0)
+        }
     }
 
 }
