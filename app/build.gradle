@@ -11,6 +11,8 @@ apply from: "../ConfigProperties.gradle"
 
 import com.slin.version.plugin.*
 
+//是否使用Release Lib
+def useReleaseLib = true
 
 android {
     signingConfigs {
@@ -78,20 +80,17 @@ dependencies {
     implementation Dependencies.hilt_viewmodel
     kapt Dependencies.hilt_viewmodel_compiler
 
-    implementation project(path: ':SlinDialog')
-    implementation project(path: ':ViewPagerIndicator')
-    implementation project(path: ':Score')
-    implementation project(path: ':ViewBindingExt')
-
-//    debugImplementation project(path: ':SlinDialog')
-//    debugImplementation project(path: ':ViewPagerIndicator')
-//    debugImplementation project(path: ':Score')
-//    debugImplementation project(path: ':ViewBindingExt')
-//
-//    releaseImplementation "com.github.dxslin.SlinLibrary:ViewPagerIndicator:${Dependencies.slin_library_version}"
-//    releaseImplementation "com.github.dxslin.SlinLibrary:SlinDialog:${Dependencies.slin_library_version}"
-//    releaseImplementation "com.github.dxslin.SlinLibrary:ViewPagerIndicator:${Dependencies.slin_library_version}"
-//    releaseImplementation "com.github.dxslin.SlinLibrary:SlinDialog:${Dependencies.slin_library_version}"
+    if(useReleaseLib){
+        implementation Dependencies.score
+        implementation Dependencies.view_binding_ext
+        implementation Dependencies.slin_dialog
+        implementation Dependencies.view_pager_indicator
+    } else {
+        implementation project(path: ':SlinDialog')
+        implementation project(path: ':ViewPagerIndicator')
+        implementation project(path: ':Score')
+        implementation project(path: ':ViewBindingExt')
+    }
 
     //    test
     testImplementation Dependencies.junit

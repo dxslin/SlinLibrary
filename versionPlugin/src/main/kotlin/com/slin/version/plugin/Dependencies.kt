@@ -4,8 +4,6 @@ object Versions {
 
     const val slin_library_version = "1.0.0"
 
-    const val score_version = "2.0.7"
-
     const val kotlin_version = "1.4.20"
 
     const val androidx_core_version = "1.3.2"
@@ -57,8 +55,11 @@ object Versions {
 
 
 object Dependencies {
-    //slin core
-    const val score = "com.github.dxslin.StudyKotlin:core:${Versions.score_version}"
+    //slin library
+    const val score = "com.github.dxslin.SlinLibrary:Score:${Versions.slin_library_version}"
+    const val view_binding_ext = "com.github.dxslin.SlinLibrary:ViewBindingExt:${Versions.slin_library_version}"
+    const val slin_dialog = "com.github.dxslin.SlinLibrary:SlinDialog:${Versions.slin_library_version}"
+    const val view_pager_indicator = "com.github.dxslin.SlinLibrary:ViewPagerIndicator:${Versions.slin_library_version}"
 
     //kotlin
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
