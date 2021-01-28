@@ -1,1 +1,7 @@
-include ':app', ':SlinDialog', ':ViewPagerIndicator'
+includeBuild 'versionPlugin'
+include ':app'
+include ':SlinDialog'
+include ':ViewPagerIndicator'
+include ':Score'
+include ':SateViewSwitcher'
+include ':ViewBindingExt'
