@@ -1,6 +1,9 @@
 package com.slin.version.plugin
 
 object Versions {
+
+    const val slin_library_version = "1.0.0"
+
     const val score_version = "2.0.7"
 
     const val kotlin_version = "1.4.20"
@@ -14,6 +17,7 @@ object Versions {
     const val dynamic_animation_version = "1.0.0"
     const val swipe_refresh_layout_version = "1.2.0-alpha01"
     const val recycler_view_version = "1.1.0"
+    const val card_view_version = "1.0.0"
 
     const val lifecycle_version = "2.2.0"
 
@@ -21,6 +25,7 @@ object Versions {
 
     const val paging_version = "3.0.0-alpha05"  //3.0.0-alpha05
 
+    const val recycler_view_adapter_helper_version = "2.9.50"
 
     const val kodein_version = "7.0.0"
 
@@ -84,6 +89,8 @@ object Dependencies {
             "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipe_refresh_layout_version}"
     const val recycler_view =
             "androidx.recyclerview:recyclerview:${Versions.recycler_view_version}"
+    const val card_view =
+            "androidx.cardview:cardview:${Versions.card_view_version}"
 
 
     //jetpack library
@@ -118,6 +125,9 @@ object Dependencies {
     const val protobuf_plugin =
             "com.google.protobuf:protobuf-gradle-plugin:${Versions.protobuf_plugin_version}"
     const val protobuf_lite = "com.google.protobuf:protobuf-javalite:${Versions.protobuf_version}"
+
+    const val recycler_view_adapter_helper =
+            "com.github.CymChad:BaseRecyclerViewAdapterHelper:${Versions.recycler_view_adapter_helper_version}"
 
     //kodein 依赖注入
     const val kodein_jvm = "org.kodein.di:kodein-di-jvm:${Versions.kodein_version}"

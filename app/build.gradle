@@ -1,6 +1,16 @@
-apply plugin: 'com.android.application'
+
+plugins {
+    id 'com.slin.version.plugin'
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
 apply from: "../ConfigProperties.gradle"
-apply plugin: 'kotlin-android'
+
+import com.slin.version.plugin.*
+
 
 android {
     signingConfigs {
@@ -11,12 +21,12 @@ android {
             keyPassword configProperty('key_password')
         }
     }
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.slin.slindialog"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,27 +43,59 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        dataBinding = true
+        //如果使用dataBinding的话，只设置dataBinding的话不会自动生成对应的binding文件，需要编译才行，因此添加此设置
+        viewBinding = true
+    }
 
 }
 
 dependencies {
-    testImplementation project(path: ':SlinDialog')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    implementation Dependencies.kotlin_stdlib
+    implementation Dependencies.appcompat
+    implementation Dependencies.swipe_refresh_layout
 
-    debugImplementation project(path: ':SlinDialog')
-    debugImplementation project(path: ':ViewPagerIndicator')
+    implementation Dependencies.material
+    implementation Dependencies.constraintlayout
+    implementation Dependencies.recycler_view
+    implementation Dependencies.card_view
+    implementation Dependencies.vector_drawable
+    implementation Dependencies.navigation_fragment
+    implementation Dependencies.navigation_ui
+    implementation Dependencies.navigation_fragment_ktx
+    implementation Dependencies.navigation_ui_ktx
+    implementation Dependencies.dynamic_animation
+    implementation Dependencies.lifecycle_extensions
+    implementation Dependencies.lifecycle_runtime
 
-    releaseImplementation 'com.github.dxslin.SlinLibrary:ViewPagerIndicator:0.3.1'
-    releaseImplementation 'com.github.dxslin.SlinLibrary:SlinDialog:0.3.1'
+    implementation Dependencies.recycler_view_adapter_helper
+
+    implementation Dependencies.hilt
+    kapt Dependencies.hilt_compiler
+    implementation Dependencies.hilt_viewmodel
+    kapt Dependencies.hilt_viewmodel_compiler
+
+    implementation project(path: ':SlinDialog')
+    implementation project(path: ':ViewPagerIndicator')
+    implementation project(path: ':Score')
+    implementation project(path: ':ViewBindingExt')
+
+//    debugImplementation project(path: ':SlinDialog')
+//    debugImplementation project(path: ':ViewPagerIndicator')
+//    debugImplementation project(path: ':Score')
+//    debugImplementation project(path: ':ViewBindingExt')
+//
+//    releaseImplementation "com.github.dxslin.SlinLibrary:ViewPagerIndicator:${Dependencies.slin_library_version}"
+//    releaseImplementation "com.github.dxslin.SlinLibrary:SlinDialog:${Dependencies.slin_library_version}"
+//    releaseImplementation "com.github.dxslin.SlinLibrary:ViewPagerIndicator:${Dependencies.slin_library_version}"
+//    releaseImplementation "com.github.dxslin.SlinLibrary:SlinDialog:${Dependencies.slin_library_version}"
+
+    //    test
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.junit_ext
+    androidTestImplementation Dependencies.espresso_core
 
 }

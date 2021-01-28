@@ -1,20 +1,25 @@
-package com.slin.test
+package com.slin.test.ui
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.slin.core.ui.CoreActivity
 import com.slin.dialog.SlinDialog
 import com.slin.dialog.core.BaseSlinDialog
 import com.slin.dialog.core.DialogViewHolder
 import com.slin.dialog.core.ViewHolder
 import com.slin.dialog.viewholder.ConfirmDialogViewHolder
+import com.slin.test.R
+import com.slin.test.databinding.ActivityDialogTestBinding
+import com.slin.viewbinding.viewBinding
 
-class DialogTestActivity : AppCompatActivity() {
+class DialogTestActivity : CoreActivity() {
+
+    private val binding: ActivityDialogTestBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dialog_test)
+        binding.btnConfirmDialog
     }
 
     fun onConfirmDialogClick(view: View) {
