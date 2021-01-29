@@ -87,6 +87,15 @@ class TestFragment : BaseFragment<FragmentTestBinding>(R.layout.fragment_test) {
 }
  ```
 
+### 混淆
+```
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+  public static * inflate(android.view.LayoutInflater);
+  public static * inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean);
+  public static * bind(android.view.View);
+}
+```
+
 
 ### 参考文档
 [ViewBindingKtx: https://github.com/DylanCaiCoding/ViewBindingKtx.git](https://github.com/DylanCaiCoding/ViewBindingKtx.git)
