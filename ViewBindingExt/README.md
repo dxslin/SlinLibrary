@@ -86,7 +86,7 @@ class TestFragment : BaseFragment<FragmentTestBinding>(R.layout.fragment_test) {
     }
 }
  ```
- **注：因为上面是通过委托懒加载的，如果没有调用binding，就不会创建实例，即不会为Activity设置ContentView，可能会导致页面显示空白**
+
 
 ### 参考文档
 [ViewBindingKtx: https://github.com/DylanCaiCoding/ViewBindingKtx.git](https://github.com/DylanCaiCoding/ViewBindingKtx.git)
