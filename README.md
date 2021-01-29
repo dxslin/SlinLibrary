@@ -24,5 +24,5 @@ allprojects {
 
 2. 然后根据需要添加依赖，比如
 ```
-implementation 'com.github.dxslin:SlinDialog:v0.1'
+implementation 'com.github.dxslin:SlinDialog:1.0.0 '
 ```
