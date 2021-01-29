@@ -1,6 +1,6 @@
 # <img src="./img/slin.png" align="center" width="24" height="24"  />  slin提供的library
 
-[![最新版本：](https://jitpack.io/v/dxslin/SlinLibrary.svg)](https://jitpack.io/#dxslin/SlinLibrary)
+最新版本：[![ ](https://jitpack.io/v/dxslin/SlinLibrary.svg)](https://jitpack.io/#dxslin/SlinLibrary)
 
 
 | library  |  引用  |  简介  |
