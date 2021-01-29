@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.slin.viewbinding
 
 import android.app.Activity
