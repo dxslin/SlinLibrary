@@ -1,20 +1,19 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'com.slin.version.plugin'
 }
 
 import com.slin.version.plugin.*
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion Versions.androidSdk
+    buildToolsVersion Versions.androidBuildTools
 
     resourcePrefix "vb"
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 30
+        minSdkVersion Versions.androidMinSdk
+        targetSdkVersion Versions.androidSdk
         versionCode 1
         versionName "1.0"
 

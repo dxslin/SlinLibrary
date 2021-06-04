@@ -2,6 +2,10 @@ package com.slin.version.plugin
 
 object Versions {
 
+    const val androidSdk = 30
+    const val androidBuildTools = "30.0.3"
+    const val androidMinSdk = 24
+
     const val slin_library_version = "1.0.0"
 
     const val kotlin_version = "1.4.20"

@@ -1,4 +1,3 @@
-includeBuild 'versionPlugin'
 include ':app'
 include ':SlinDialog'
 include ':ViewPagerIndicator'

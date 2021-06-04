@@ -1,12 +1,13 @@
 apply plugin: 'com.android.library'
 
+import com.slin.version.plugin.*
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion Versions.androidSdk
+    buildToolsVersion Versions.androidBuildTools
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion Versions.androidMinSdk
+        targetSdkVersion Versions.androidSdk
         versionCode 1
         versionName "1.0"
 

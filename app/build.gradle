@@ -1,6 +1,5 @@
 
 plugins {
-    id 'com.slin.version.plugin'
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
@@ -23,12 +22,12 @@ android {
             keyPassword configProperty('key_password')
         }
     }
-    compileSdkVersion 30
-    buildToolsVersion '29.0.3'
+    compileSdkVersion Versions.androidSdk
+    buildToolsVersion Versions.androidBuildTools
     defaultConfig {
         applicationId "com.slin.slindialog"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion Versions.androidMinSdk
+        targetSdkVersion Versions.androidSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
