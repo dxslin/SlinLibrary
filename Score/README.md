@@ -22,14 +22,16 @@
       id 'dagger.hilt.android.plugin'
  }
  ```
- ```groovy
- //添加hilt依赖，因为下面用到了hilt生成配置项，所以必须配置kapt
- implementation "com.google.dagger:hilt-android:2.28-alpha"
- kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
- kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
 
+ ```groovy
  //添加Score依赖项
- implementation "com.github.dxslin.SlinLibrary:Score:1.0.0"
+implementation "com.github.dxslin.SlinLibrary:Score:1.0.0"
+
+//添加hilt依赖，因为下面用到了hilt生成配置项，所以必须配置kapt
+implementation "com.google.dagger:hilt-android:2.28-alpha"
+kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+
  ```
 
  ### 2. 新建ConfigModule.kt通过依赖注入配置项目

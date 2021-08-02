@@ -39,7 +39,7 @@ object Versions {
 
     const val glide_version = "4.11.0"
 
-    const val hilt_version = "2.28-alpha"
+    const val hilt_version = "2.38.1"
     const val hilt_viewmodel_version = "1.0.0-alpha02"
 
     const val data_store_version = "1.0.0-alpha02"

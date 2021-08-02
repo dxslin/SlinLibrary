@@ -1,11 +1,9 @@
-package com.slin.core.net
+package com.slin.svs.ext
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
-import com.slin.core.R
-import com.slin.sate_view_switcher.DefaultStateView
-import com.slin.sate_view_switcher.StateView
+import com.slin.core.net.Errors
 
 
 /**
@@ -37,9 +35,9 @@ class CoreStateView : DefaultStateView() {
 
     override fun obtainFailText(context: Context, throwable: Throwable?): CharSequence {
         return if (isNoNetwork(throwable)) {
-            context.getString(R.string.core_svs_no_network)
+            context.getString(R.string.svs_no_network)
         } else {
-            context.getString(R.string.core_svs_error)
+            context.getString(R.string.svs_view_error)
         }
     }
 

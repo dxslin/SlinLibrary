@@ -3,11 +3,8 @@ package com.slin.core.config
 import android.app.Application
 import com.slin.core.BuildConfig
 import com.slin.core.image.ApplyGlideOptions
-import com.slin.core.net.CoreStateViewFactory
 import com.slin.core.utils.ExecutorServiceHelper
 import com.slin.core.utils.FileUtils
-import com.slin.sate_view_switcher.StateView
-import com.slin.sate_view_switcher.StateViewSwitcher
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -46,12 +43,7 @@ data class CoreConfig(
         val executorService: ExecutorService = ExecutorServiceHelper.IOExecutor,
         val applyRetrofitOptions: ApplyRetrofitOptions? = null,
         val applyOkHttpOptions: ApplyOkHttpOptions? = null,
-        val stateViewFactory: StateView.Factory = CoreStateViewFactory(),
-) {
-    init {
-        StateViewSwitcher.config(stateViewFactory)
-    }
-}
+)
 
 
 interface ApplyRetrofitOptions {

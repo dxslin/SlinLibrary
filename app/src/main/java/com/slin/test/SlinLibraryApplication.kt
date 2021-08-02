@@ -3,6 +3,8 @@ package com.slin.test
 import android.app.Application
 import com.slin.core.SCore
 import com.slin.core.logger.initLogger
+import com.slin.sate_view_switcher.StateViewSwitcher
+import com.slin.svs.ext.CoreStateViewFactory
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -20,6 +22,7 @@ class SlinLibraryApplication : Application() {
 
         SCore.init(this)
         SCore.initLogger(BuildConfig.DEBUG)
+        StateViewSwitcher.config(CoreStateViewFactory())
 
     }
 
