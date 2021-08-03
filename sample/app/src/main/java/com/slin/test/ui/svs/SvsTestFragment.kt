@@ -5,14 +5,12 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.slin.core.net.status.SvsState
 import com.slin.sate_view_switcher.DefaultStateView
 import com.slin.sate_view_switcher.StateView
 import com.slin.sate_view_switcher.StateViewSwitcher
 import com.slin.test.R
 import com.slin.test.base.BaseFragment
 import com.slin.test.databinding.FragmentSvsTestBinding
-import java.io.IOException
 
 class SvsTestFragment : BaseFragment<FragmentSvsTestBinding>(R.layout.fragment_svs_test) {
 

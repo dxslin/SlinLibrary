@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.slin.test.base.BaseActivity
 import com.slin.test.databinding.ActivityIndicatorTestBinding
-import java.util.*
 
 class IndicatorTestActivity : BaseActivity<ActivityIndicatorTestBinding>() {
 

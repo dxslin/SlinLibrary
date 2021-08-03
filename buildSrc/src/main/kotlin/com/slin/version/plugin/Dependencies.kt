@@ -21,7 +21,7 @@ object Versions {
     const val recycler_view_version = "1.1.0"
     const val card_view_version = "1.0.0"
 
-    const val lifecycle_version = "2.3.1"
+    const val lifecycle_version = "2.2.0"
 
     const val room_version = "2.2.5"
 
