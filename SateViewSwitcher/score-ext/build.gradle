@@ -1,13 +1,40 @@
-plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+import com.slin.version.plugin.*
+
+android {
+    compileSdkVersion Versions.androidSdk
+    buildToolsVersion Versions.androidBuildTools
+    defaultConfig {
+        minSdkVersion Versions.androidMinSdk
+        targetSdkVersion Versions.androidSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
 dependencies {
     api project(path: ':SateViewSwitcher')
+    compileOnly project(path: ':Score')
+
+    implementation Dependencies.kotlin_stdlib
+    implementation Dependencies.androidx_core
+}
+repositories {
+    mavenCentral()
 }

@@ -8,10 +8,10 @@ object Versions {
 
     const val slin_library_version = "1.0.0"
 
-    const val kotlin_version = "1.4.20"
+    const val kotlin_version = "1.5.30-M1"
 
-    const val androidx_core_version = "1.3.2"
-    const val appcompat_version = "1.2.0"
+    const val androidx_core_version = "1.6.0"
+    const val appcompat_version = "1.3.0"
     const val material_version = "1.2.0"
     const val constraint_layout_version = "2.0.1"
     const val vector_drawable_version = "1.1.0"
@@ -21,7 +21,7 @@ object Versions {
     const val recycler_view_version = "1.1.0"
     const val card_view_version = "1.0.0"
 
-    const val lifecycle_version = "2.2.0"
+    const val lifecycle_version = "2.3.1"
 
     const val room_version = "2.2.5"
 
