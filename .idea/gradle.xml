@@ -11,10 +11,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/SateViewSwitcher" />
-            <option value="$PROJECT_DIR$/SateViewSwitcher/score-ext" />
             <option value="$PROJECT_DIR$/Score" />
             <option value="$PROJECT_DIR$/SlinDialog" />
+            <option value="$PROJECT_DIR$/StateViewSwitcher" />
+            <option value="$PROJECT_DIR$/StateViewSwitcher/score-ext" />
             <option value="$PROJECT_DIR$/ViewBindingExt" />
             <option value="$PROJECT_DIR$/ViewPagerIndicator" />
             <option value="$PROJECT_DIR$/buildSrc" />

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    api project(path: ':SateViewSwitcher')
+    api project(path: ':StateViewSwitcher')
     compileOnly project(path: ':Score')
 
     implementation Dependencies.kotlin_stdlib

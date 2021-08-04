@@ -89,7 +89,7 @@ dependencies {
         implementation project(path: ':ViewPagerIndicator')
         implementation project(path: ':Score')
         implementation project(path: ':ViewBindingExt')
-        implementation project(path: ':SateViewSwitcher:score-ext')
+        implementation project(path: ':StateViewSwitcher:score-ext')
     }
 
     //    test
