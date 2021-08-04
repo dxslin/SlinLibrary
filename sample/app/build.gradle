@@ -69,8 +69,8 @@ dependencies {
     implementation Dependencies.navigation_fragment_ktx
     implementation Dependencies.navigation_ui_ktx
     implementation Dependencies.dynamic_animation
-    implementation Dependencies.lifecycle_extensions
-    implementation Dependencies.lifecycle_runtime
+//    implementation Dependencies.lifecycle_extensions
+//    implementation Dependencies.lifecycle_runtime
 
     implementation Dependencies.recycler_view_adapter_helper
 

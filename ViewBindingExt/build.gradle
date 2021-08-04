@@ -34,8 +34,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Dependencies.kotlin_stdlib
     implementation Dependencies.appcompat
-    implementation Dependencies.lifecycle_extensions
-    implementation Dependencies.lifecycle_runtime
+//    implementation Dependencies.lifecycle_extensions
+//    implementation Dependencies.lifecycle_runtime
     implementation Dependencies.recycler_view
 
 //    test

@@ -12,20 +12,20 @@ object Versions {
 
     const val androidx_core_version = "1.6.0"
     const val appcompat_version = "1.3.0"
-    const val material_version = "1.2.0"
-    const val constraint_layout_version = "2.0.1"
+    const val material_version = "1.4.0"
+    const val constraint_layout_version = "2.0.4"
     const val vector_drawable_version = "1.1.0"
-    const val navigation_version = "2.2.0"
+    const val navigation_version = "2.3.5"
     const val dynamic_animation_version = "1.0.0"
     const val swipe_refresh_layout_version = "1.2.0-alpha01"
-    const val recycler_view_version = "1.1.0"
+    const val recycler_view_version = "1.2.1"
     const val card_view_version = "1.0.0"
 
-    const val lifecycle_version = "2.2.0"
+    const val lifecycle_version = "2.3.1"
 
-    const val room_version = "2.2.5"
+    const val room_version = "2.3.0"
 
-    const val paging_version = "3.0.0-alpha05"  //3.0.0-alpha05
+    const val paging_version = "3.0.0"  //3.0.0-alpha05
 
     const val recycler_view_adapter_helper_version = "2.9.50"
 
@@ -40,7 +40,7 @@ object Versions {
     const val glide_version = "4.11.0"
 
     const val hilt_version = "2.38.1"
-    const val hilt_viewmodel_version = "1.0.0-alpha02"
+    const val hilt_viewmodel_version = "1.0.0-alpha03"
 
     const val data_store_version = "1.0.0-alpha02"
     const val protobuf_plugin_version = "0.8.13"
@@ -99,10 +99,8 @@ object Dependencies {
 
 
     //jetpack library
-    const val lifecycle_extensions =
-            "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle_version}"
     const val lifecycle_runtime =
-            "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycle_version}"
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle_version}"
     const val lifecycle_livedata_ktx =
             "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_version}"
     const val lifecycle_viewmodel_ktx =
