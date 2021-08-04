@@ -5,12 +5,14 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.slin.sate_view_switcher.DefaultStateView
-import com.slin.sate_view_switcher.StateView
-import com.slin.sate_view_switcher.StateViewSwitcher
+import com.slin.core.net.status.SvsState
+import com.slin.svs.DefaultStateView
+import com.slin.svs.StateView
+import com.slin.svs.StateViewSwitcher
 import com.slin.test.R
 import com.slin.test.base.BaseFragment
 import com.slin.test.databinding.FragmentSvsTestBinding
+import java.io.IOException
 
 class SvsTestFragment : BaseFragment<FragmentSvsTestBinding>(R.layout.fragment_svs_test) {
 
@@ -39,30 +41,22 @@ class SvsTestFragment : BaseFragment<FragmentSvsTestBinding>(R.layout.fragment_s
         btnLoading.setOnClickListener { stateViewSwitcher.stateChange(SvsState.Loading(false)) }
         btnLoadSuccess.setOnClickListener {
             stateViewSwitcher.stateChange(
-                    SvsState.LoadSuccess(
-                            true
-                    )
+                SvsState.LoadSuccess(true)
             )
         }
         btnLoadFailNoData.setOnClickListener {
             stateViewSwitcher.stateChange(
-                    SvsState.LoadSuccess(
-                            false
-                    )
+                SvsState.LoadSuccess(false)
             )
         }
         btnLoadFailNoNetwork.setOnClickListener {
             stateViewSwitcher.stateChange(
-                    SvsState.LoadFail(
-                            NoNetworkException()
-                    )
+                SvsState.LoadFail(NoNetworkException())
             )
         }
         btnLoadFailError.setOnClickListener {
             stateViewSwitcher.stateChange(
-                    SvsState.LoadFail(
-                            IOException("IOError")
-                    )
+                SvsState.LoadFail(IOException("IOError"))
             )
         }
 

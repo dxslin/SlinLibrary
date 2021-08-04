@@ -6,7 +6,7 @@ import com.slin.core.SCore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Qualifier
 
 
@@ -17,8 +17,8 @@ import javax.inject.Qualifier
  *
  */
 @Module
-@InstallIn(ApplicationComponent::class)
-object SlinCoreModule {
+@InstallIn(SingletonComponent::class)
+object SCoreModule {
 
     @Provides
     fun provideSCore(): SCore {

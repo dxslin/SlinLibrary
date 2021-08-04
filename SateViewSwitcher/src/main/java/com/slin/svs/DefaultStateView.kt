@@ -1,4 +1,4 @@
-package com.slin.sate_view_switcher
+package com.slin.svs
 
 import android.content.Context
 import android.graphics.drawable.Drawable

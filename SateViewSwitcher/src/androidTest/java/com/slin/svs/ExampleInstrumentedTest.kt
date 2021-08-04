@@ -1,4 +1,4 @@
-package com.slin.sate_view_switcher
+package com.slin.svs
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

@@ -4,9 +4,8 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import com.slin.core.net.Errors
-import com.slin.sate_view_switcher.DefaultStateView
-import com.slin.sate_view_switcher.StateView
-import fake.`package`.name.`for`.sync.R
+import com.slin.svs.DefaultStateView
+import com.slin.svs.StateView
 
 
 /**

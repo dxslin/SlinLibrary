@@ -1,4 +1,4 @@
-package com.slin.sate_view_switcher
+package com.slin.svs
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

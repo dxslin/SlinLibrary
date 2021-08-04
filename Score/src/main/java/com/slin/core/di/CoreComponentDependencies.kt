@@ -6,7 +6,7 @@ import com.slin.core.config.CoreConfig
 import com.slin.core.image.ImageLoader
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
@@ -18,7 +18,7 @@ import retrofit2.Retrofit
  *
  */
 @EntryPoint
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 interface CoreComponentDependencies {
 
     fun coreConfig(): CoreConfig

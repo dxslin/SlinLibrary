@@ -1,4 +1,4 @@
-package com.slin.sate_view_switcher
+package com.slin.svs
 
 import android.view.View
 import android.view.ViewGroup
