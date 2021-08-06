@@ -7,6 +7,7 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.1.0-alpha06'
@@ -28,7 +29,15 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'}
 
+        mavenLocal()
+        maven{
+            url uri("${rootDir.path}/repo/release")
+        }
+        maven{
+            url uri("${rootDir.path}/repo/snapshot")
+        }
     }
 }
 

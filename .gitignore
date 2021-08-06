@@ -14,3 +14,4 @@
 .externalNativeBuild
 /.idea/compiler.xml
 /.idea/jarRepositories.xml
+/secring.gpg
