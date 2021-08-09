@@ -71,6 +71,10 @@ object Dependencies {
     const val slin_dialog = "io.github.dxslin:SlinDialog:${Versions.slin_library_version}"
     const val view_pager_indicator =
         "io.github.dxslin:ViewPagerIndicator:${Versions.slin_library_version}"
+    const val StateViewSwitcher =
+        "io.github.dxslin:StateViewSwitcher:${Versions.slin_library_version}"
+    const val StateViewSwitcherScoreExt =
+        "io.github.dxslin:StateViewSwitcher_score-ext:${Versions.slin_library_version}"
 
     //kotlin
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"

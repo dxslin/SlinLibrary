@@ -84,6 +84,7 @@ dependencies {
         implementation Dependencies.view_binding_ext
         implementation Dependencies.slin_dialog
         implementation Dependencies.view_pager_indicator
+        implementation Dependencies.StateViewSwitcherScoreExt
     } else {
         implementation project(path: ':SlinDialog')
         implementation project(path: ':ViewPagerIndicator')
