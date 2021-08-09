@@ -5,6 +5,8 @@ plugins {
 
 import com.slin.version.plugin.*
 
+apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
+
 android {
     compileSdkVersion Versions.androidSdk
     buildToolsVersion Versions.androidBuildTools
@@ -27,6 +29,12 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    flavorDimensions "functionality"
+    productFlavors{
+        full {
+            dimension "functionality"
+        }
     }
 }
 

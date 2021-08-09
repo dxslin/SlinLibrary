@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 
 import com.slin.version.plugin.*
 
+apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
+
 android {
     compileSdkVersion Versions.androidSdk
     buildToolsVersion Versions.androidBuildTools
@@ -18,9 +20,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
-
+    flavorDimensions "functionality"
+    productFlavors{
+        full {
+            dimension "functionality"
+        }
+    }
 }
 
 dependencies {

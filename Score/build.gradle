@@ -7,7 +7,7 @@ plugins {
 
 }
 
-apply from: "${rootProject.rootDir.path}/script/publication.gradle"
+apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
 
 android {
     compileSdkVersion Versions.androidSdk
@@ -35,10 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    flavorDimensions 'area'
+    flavorDimensions "functionality"
     productFlavors{
-        china{
-            dimension 'area'
+        full {
+            dimension "functionality"
         }
     }
 }
