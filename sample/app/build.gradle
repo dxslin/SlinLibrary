@@ -11,7 +11,7 @@ apply from: "../../ConfigProperties.gradle"
 import com.slin.version.plugin.*
 
 //是否使用Release Lib
-def useReleaseLib = true
+def useReleaseLib = false
 
 android {
     signingConfigs {

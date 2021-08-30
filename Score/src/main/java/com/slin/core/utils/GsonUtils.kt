@@ -1,6 +1,7 @@
 package com.slin.core.utils
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 
 /**
@@ -11,7 +12,6 @@ import com.google.gson.Gson
  */
 object GsonUtils {
 
-    //    val INSTANCE: Gson = SCore.coreComponent.gson()
     val INSTANCE: Gson = Gson()
 }
 
@@ -21,4 +21,8 @@ fun <T> T.toJson(): String {
 
 inline fun <reified T> String.fromJson(): T {
     return GsonUtils.INSTANCE.fromJson(this, T::class.java)
+}
+
+inline fun <reified T> String.fromJsonArray(): List<T> {
+    return GsonUtils.INSTANCE.fromJson(this, object : TypeToken<List<T>>() {}.type)
 }

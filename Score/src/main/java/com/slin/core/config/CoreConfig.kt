@@ -1,7 +1,7 @@
 package com.slin.core.config
 
 import android.app.Application
-import com.slin.core.BuildConfig
+import com.slin.core.SCore
 import com.slin.core.image.ApplyGlideOptions
 import com.slin.core.utils.ExecutorServiceHelper
 import com.slin.core.utils.FileUtils
@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutorService
 object DefaultConfig {
     const val TIME_OUT_SECONDS = 10L
     const val BASE_URL = "https://api.github.com/"
-    val HTTP_LOG_LEVEL = when (BuildConfig.DEBUG) {
+    val HTTP_LOG_LEVEL = when (SCore.debug) {
         true -> HttpLoggingInterceptor.Level.BODY
         false -> HttpLoggingInterceptor.Level.NONE
     }

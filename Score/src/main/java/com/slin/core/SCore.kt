@@ -80,22 +80,27 @@ import dagger.hilt.android.EntryPointAccessors
  */
 object SCore {
 
+    internal var debug: Boolean = false
+
     lateinit var application: Application
 
     lateinit var coreComponent: SCoreComponent
 
 
-    fun init(application: Application) {
+    fun init(application: Application, debug: Boolean = BuildConfig.DEBUG) {
         this.application = application
+        this.debug = debug
         coreComponent = DaggerSCoreComponent.builder()
-                .coreDependencies(
-                        EntryPointAccessors.fromApplication(application,
-                                CoreComponentDependencies::class.java)
+            .coreDependencies(
+                EntryPointAccessors.fromApplication(
+                    application,
+                    CoreComponentDependencies::class.java
                 )
-                .context(application)
-                .build()
+            )
+            .context(application)
+            .build()
         coreComponent.inject(application)
-        initLogger(BuildConfig.DEBUG)
+        initLogger(debug)
     }
 
 }

@@ -5,6 +5,7 @@ import com.slin.core.config.CoreConfig
 import com.slin.core.logger.logd
 import com.slin.core.net.ResultsCallAdapterFactory
 import com.slin.core.net.RxResultsCallAdapterFactory
+import com.slin.core.utils.GsonUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -109,7 +110,7 @@ object HttpClientModule {
     @Provides
     @Singleton
     fun provideGson(): Gson {
-        return Gson()
+        return GsonUtils.INSTANCE
     }
 
 
