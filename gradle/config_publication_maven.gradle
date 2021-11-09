@@ -1,4 +1,4 @@
-
+//参考 https://github.com/rain9155/MavenPublishScript
 def helper = new Helper(project)
 
 if(helper.isCheckPass){
