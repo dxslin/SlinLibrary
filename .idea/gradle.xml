@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Score" />
+            <option value="$PROJECT_DIR$/Score/mvi" />
             <option value="$PROJECT_DIR$/SlinDialog" />
             <option value="$PROJECT_DIR$/StateViewSwitcher" />
             <option value="$PROJECT_DIR$/StateViewSwitcher/score-ext" />

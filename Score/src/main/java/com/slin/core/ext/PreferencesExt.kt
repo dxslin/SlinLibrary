@@ -20,7 +20,10 @@ private inline fun <T> SharedPreferences.delegate(
         crossinline getter: SharedPreferences.(String, T) -> T
 ) = object : ReadWriteProperty<Any, T> {
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
-        edit().setter(key ?: property.name, value).apply()
+        edit().apply {
+            setter(key ?: property.name, value)
+            apply()
+        }
     }
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T {
@@ -75,10 +78,10 @@ fun SharedPreferences.stringSet(
         defaultValue: Set<String> = emptySet()
 ): ReadWriteProperty<Any, Set<String>> {
     return delegate(
-            key,
-            defaultValue,
-            SharedPreferences.Editor::putStringSet,
-            { it, set -> getStringSet(it, set) as Set<String> })
+        key,
+        defaultValue,
+        SharedPreferences.Editor::putStringSet
+    ) { it, set -> getStringSet(it, set) as Set<String> }
 }
 
 
@@ -87,8 +90,8 @@ fun SharedPreferences.string(
         defaultValue: String = ""
 ): ReadWriteProperty<Any, String> {
     return delegate(
-            key,
-            defaultValue,
-            SharedPreferences.Editor::putString,
-            { str1, str2 -> getString(str1, str2) as String })
+        key,
+        defaultValue,
+        SharedPreferences.Editor::putString
+    ) { str1, str2 -> getString(str1, str2) as String }
 }
