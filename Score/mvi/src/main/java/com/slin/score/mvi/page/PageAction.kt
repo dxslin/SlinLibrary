@@ -10,8 +10,14 @@ import com.slin.score.mvi.Action
  */
 sealed class PageAction : Action {
 
+    /**
+     * 刷新
+     */
     object Refresh : PageAction()
 
+    /**
+     * 加载更多
+     */
     object LoadMore : PageAction()
 
 }

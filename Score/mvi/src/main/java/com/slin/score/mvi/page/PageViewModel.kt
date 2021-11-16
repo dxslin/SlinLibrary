@@ -5,7 +5,9 @@ import com.slin.score.mvi.ReducerRegister
 
 /**
  * author: slin
+ *
  * date: 2021/11/15
+ *
  * description: 分页加载的ViewModel
  *
  * 处理分页加载状态和逻辑
@@ -14,7 +16,7 @@ import com.slin.score.mvi.ReducerRegister
 abstract class PageViewModel<T> : MviViewModel<PageViewState<T>, PageAction>(PageViewState()) {
 
     override fun onStart(register: ReducerRegister<PageViewState<T>, PageAction>) {
-        register[PageAction.Refresh::class] = { state, _ ->
+        register.addReducer(PageAction.Refresh::class) { state, _ ->
             emit(state.copy(true))
             try {
                 val res = refresh()
@@ -24,7 +26,7 @@ abstract class PageViewModel<T> : MviViewModel<PageViewState<T>, PageAction>(Pag
             }
         }
 
-        register[PageAction.LoadMore::class] = { state, _ ->
+        register.addReducer(PageAction.LoadMore::class) { state, _ ->
             emit(state.copy(true))
             val page = state.page.inc()
             try {

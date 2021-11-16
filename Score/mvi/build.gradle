@@ -50,7 +50,7 @@ dependencies {
     implementation Dependencies.kotlin_stdlib
     implementation Dependencies.lifecycle_viewmodel_ktx
     implementation Dependencies.lifecycle_livedata_ktx
-
+    implementation Dependencies.appcompat
 
 //    test
     testImplementation Dependencies.junit

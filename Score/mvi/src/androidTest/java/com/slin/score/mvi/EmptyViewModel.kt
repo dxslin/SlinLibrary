@@ -17,7 +17,7 @@ private val TAG = EmptyViewModel::class.java.simpleName
 class EmptyViewModel : MviViewModel<EmptyViewState, EmptyAction>(EmptyViewState) {
 
     override fun onStart(register: ReducerRegister<EmptyViewState, EmptyAction>) {
-        register[EmptyAction::class] = { viewState, action ->
+        register.addReducer(EmptyAction::class) { viewState, action ->
             delay(1000)
             emit(EmptyViewState)
             Log.d(TAG, "1 onStart: ${Date()}")
