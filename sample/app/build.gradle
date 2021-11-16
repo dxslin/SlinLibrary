@@ -81,6 +81,7 @@ dependencies {
 
     if(useReleaseLib){
         implementation Dependencies.score
+        implementation Dependencies.score_mvi
         implementation Dependencies.view_binding_ext
         implementation Dependencies.slin_dialog
         implementation Dependencies.view_pager_indicator
@@ -89,6 +90,7 @@ dependencies {
         implementation project(path: ':SlinDialog')
         implementation project(path: ':ViewPagerIndicator')
         implementation project(path: ':Score')
+        implementation project(path: ':Score:mvi')
         implementation project(path: ':ViewBindingExt')
         implementation project(path: ':StateViewSwitcher:score-ext')
     }

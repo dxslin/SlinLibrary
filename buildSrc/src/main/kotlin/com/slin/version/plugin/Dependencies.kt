@@ -67,6 +67,7 @@ object Dependencies {
 
     //slin library
     const val score = "io.github.dxslin:Score:${Versions.slin_library_version}"
+    const val score_mvi = "io.github.dxslin:Score-mvi:${Versions.slin_library_version}"
     const val view_binding_ext = "io.github.dxslin:ViewBindingExt:${Versions.slin_library_version}"
     const val slin_dialog = "io.github.dxslin:SlinDialog:${Versions.slin_library_version}"
     const val view_pager_indicator =
