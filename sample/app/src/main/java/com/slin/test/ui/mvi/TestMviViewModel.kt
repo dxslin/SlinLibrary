@@ -1,6 +1,7 @@
 package com.slin.test.ui.mvi
 
 import com.slin.score.mvi.*
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,12 +60,10 @@ class TestMviViewModel : MviViewModel<TestViewState, TestAction>(TestViewState()
         }
     }
 
-    private fun FlowCoroutineScope<TestViewState>.startTimer() {
-        viewModelScope.launch {
-            while (viewState.value.timerStatus) {
-                emit(viewState.value.copy(time = nowDate()))
-                delay(1000)
-            }
+    private suspend fun FlowCoroutineScope<TestViewState>.startTimer() {
+        while (viewState.value.timerStatus) {
+            emit(viewState.value.copy(time = nowDate()))
+            delay(1000)
         }
     }
 
