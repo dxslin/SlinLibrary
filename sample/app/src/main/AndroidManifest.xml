@@ -26,7 +26,7 @@
 
         <activity android:name=".ui.DialogTestActivity" />
         <activity android:name=".ui.IndicatorTestActivity" />
-        <activity android:name=".ui.svs.SvsTestActivity" />
+        <activity android:name=".ui.SingleTestActivity" />
     </application>
 
 </manifest>

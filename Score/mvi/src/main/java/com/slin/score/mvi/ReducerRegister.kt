@@ -24,7 +24,7 @@ class ReducerRegister<S : ViewState, A : Action> {
     fun addReducer(action: KClass<out A>, reducer: Reducer<S, A>) {
         map.keys.forEach {
             // 判断是否重复添加，类本身或者超类都算
-            if (action.equalActionClass(it)) {
+            if (it.equalOrAssignableFrom(action)) {
                 error("It has already registered $action.")
             }
         }
@@ -44,14 +44,14 @@ class ReducerRegister<S : ViewState, A : Action> {
      */
     internal fun reducerOf(action: KClass<out A>): Reducer<S, A> {
         map.entries.forEach {
-            if (action.equalActionClass(it.key)) {
+            if (it.key.equalOrAssignableFrom(action)) {
                 return it.value
             }
         }
         error("Cannot find reducer with $action")
     }
 
-    private fun KClass<out Action>.equalActionClass(action: KClass<out A>): Boolean {
+    private fun KClass<out Action>.equalOrAssignableFrom(action: KClass<out A>): Boolean {
         return this == action || this.java.isAssignableFrom(action.java)
     }
 

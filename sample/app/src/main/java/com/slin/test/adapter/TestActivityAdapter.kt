@@ -1,6 +1,5 @@
 package com.slin.test.adapter
 
-import android.app.Activity
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -26,4 +25,4 @@ class TestActivityAdapter(data: List<TestActivityBean>) :
 }
 
 
-class TestActivityBean(var clazz: Class<out Activity>, var name: String, @DrawableRes var imgRes: Int)
+class TestActivityBean(var clazz: Class<out Any>, var name: String, @DrawableRes var imgRes: Int)

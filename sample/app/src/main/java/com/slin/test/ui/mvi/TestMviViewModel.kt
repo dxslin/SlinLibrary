@@ -1,9 +1,8 @@
 package com.slin.test.ui.mvi
 
-import com.slin.score.mvi.Action
-import com.slin.score.mvi.MviViewModel
-import com.slin.score.mvi.ReducerRegister
-import com.slin.score.mvi.ViewState
+import com.slin.score.mvi.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * author: slin
@@ -16,15 +15,19 @@ import com.slin.score.mvi.ViewState
  */
 sealed class TestAction : Action {
 
-    class ClickTextAction(text: String) : TestAction()
+    class ClickTextAction(val text: String) : TestAction()
 
+    object TimerStateAction : TestAction()
 
 }
 
-class TestViewState(
+data class TestViewState(
 
-    val text: String = "",
+    val text: String = "Click me",
 
+    val time: String = "(*_*)",
+
+    var timerStatus: Boolean = false,
 
     ) : ViewState
 
@@ -33,9 +36,43 @@ class TestMviViewModel : MviViewModel<TestViewState, TestAction>(TestViewState()
 
 
     override fun onStart(register: ReducerRegister<TestViewState, TestAction>) {
-
-
+        register.addReducer(TestAction::class) { viewState, action ->
+            when (action) {
+                is TestAction.ClickTextAction -> {
+                    val state = viewState.copy(text = action.text)
+                    emit(state)
+                }
+                is TestAction.TimerStateAction -> {
+                    val state = if (viewState.timerStatus) {
+                        viewState.timerStatus = false
+                        viewState.copy(time = "(*_*)")
+                    } else {
+                        viewState.timerStatus = true
+                        startTimer()
+                        viewState.copy(time = nowDate())
+                    }
+                    emit(state)
+                }
+                else -> {
+                }
+            }
+        }
     }
 
+    private fun FlowCoroutineScope<TestViewState>.startTimer() {
+        viewModelScope.launch {
+            while (viewState.value.timerStatus) {
+                emit(viewState.value.copy(time = nowDate()))
+                delay(1000)
+            }
+        }
+    }
+
+    private fun nowDate(): String {
+        return SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss",
+            Locale.getDefault()
+        ).format(Date())
+    }
 
 }

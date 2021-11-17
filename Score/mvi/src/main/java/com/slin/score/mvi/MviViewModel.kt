@@ -55,7 +55,7 @@ abstract class MviViewModel<S : ViewState, A : Action>(initialState: S) : ViewMo
     /**
      * 提交并执行[Action]
      */
-    fun dispatch(action: A, result: ActionResult) {
+    fun dispatch(action: A, result: ActionResult = {}) {
         viewModelScope.launch {
             nextAction.emit(Pair(action, result))
         }
