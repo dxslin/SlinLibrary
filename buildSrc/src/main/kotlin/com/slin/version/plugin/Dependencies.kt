@@ -6,7 +6,7 @@ object Versions {
     const val androidBuildTools = "30.0.3"
     const val androidMinSdk = 24
 
-    const val slin_library_version = "1.0.0"
+    const val slin_library_version = "1.1.3"
 
     const val kotlin_version = "1.5.30-M1"
 

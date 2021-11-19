@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.slin.test.R
 import com.slin.test.base.BaseFragment
 import com.slin.test.databinding.FragmentTestMviBinding
+import kotlinx.coroutines.flow.collect
 
 /**
  * author: slin
