@@ -38,11 +38,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
-    implementation Dependencies.appcompat
-    implementation Dependencies.constraintlayout
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.AndroidX.constraintLayout
 
     //    test
-    testImplementation Dependencies.junit
-    androidTestImplementation Dependencies.junit_ext
-    androidTestImplementation Dependencies.espresso_core
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.Test.junitExt
+    androidTestImplementation Libs.Test.espressoCore
 }

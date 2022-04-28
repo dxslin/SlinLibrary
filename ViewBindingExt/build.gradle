@@ -40,15 +40,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation Dependencies.kotlin_stdlib
-    implementation Dependencies.appcompat
-//    implementation Dependencies.lifecycle_extensions
-//    implementation Dependencies.lifecycle_runtime
-    implementation Dependencies.recycler_view
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.AndroidX.appcompat
+//    implementation Libs.lifecycle_extensions
+//    implementation Libs.lifecycle_runtime
+    implementation Libs.AndroidX.recyclerView
 
 //    test
-    testImplementation Dependencies.junit
-    androidTestImplementation Dependencies.junit_ext
-    androidTestImplementation Dependencies.espresso_core
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.Test.junitExt
+    androidTestImplementation Libs.Test.espressoCore
 
 }

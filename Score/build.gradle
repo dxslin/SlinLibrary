@@ -47,41 +47,41 @@ dependencies {
     api fileTree(dir: "libs", include: ["*.jar"])
 //    api project(path: ':SateViewSwitcher')
 //    api 'com.github.dxslin.StudyKotlin:SateViewSwitcher:1.0'
-    api Dependencies.kotlin_stdlib
-    api Dependencies.kotlin_coroutines
+    api Libs.Kotlin.stdlib
+    api Libs.Kotlin.Coroutines.core
 
-    api Dependencies.appcompat
-//    api Dependencies.lifecycle_extensions
-//    api Dependencies.lifecycle_runtime
+    api Libs.AndroidX.appcompat
+//    api Libs.lifecycle_extensions
+//    api Libs.lifecycle_runtime
 
     //hilt
-    api Dependencies.hilt
-    kapt Dependencies.hilt_compiler
-    api Dependencies.hilt_viewmodel
-    kapt Dependencies.hilt_viewmodel_compiler
+    api Libs.Jetpack.hilt
+    kapt Libs.Jetpack.hiltCompiler
+    api Libs.Jetpack.hiltViewModel
+    kapt Libs.Jetpack.hiltViewModelCompiler
 
     //DataStore & protobuf
-    api Dependencies.data_store_core
-    api Dependencies.data_store_preferences
-    api Dependencies.protobuf_lite
+    api Libs.Jetpack.dataStoreCore
+    api Libs.Jetpack.dataStorePreferences
+    api Libs.Jetpack.protobufLite
 
 //    okhttp
-    api Dependencies.okhttp
-    api Dependencies.okhttp_logging
+    api Libs.OkHttp.okhttp
+    api Libs.OkHttp.okhttpLogging
 
 //    retrofit
-    api Dependencies.retrofit
-    api Dependencies.retrofit_gson
+    api Libs.Retrofit.retrofit
+    api Libs.Retrofit.retrofitGson
 
 //    timber
-    api Dependencies.timber
+    api Libs.Logger.timber
 
 //    gilde
-    api Dependencies.glide
-    kapt Dependencies.glide_compiler
+    api Libs.Glide.glide
+    kapt Libs.Glide.glideCompiler
 
 //    test
-    testImplementation Dependencies.junit
-    androidTestImplementation Dependencies.junit_ext
-    androidTestImplementation Dependencies.espresso_core
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.Test.junitExt
+    androidTestImplementation Libs.Test.espressoCore
 }

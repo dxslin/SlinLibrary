@@ -32,8 +32,8 @@ dependencies {
     api project(path: ':StateViewSwitcher')
     compileOnly project(path: ':Score')
 
-    implementation Dependencies.kotlin_stdlib
-    implementation Dependencies.androidx_core
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.AndroidX.core
 }
 repositories {
     mavenCentral()

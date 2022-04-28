@@ -11,7 +11,7 @@ apply from: "../../ConfigProperties.gradle"
 import com.slin.version.plugin.*
 
 //是否使用Release Lib
-def useReleaseLib = true
+def useReleaseLib = false
 
 android {
     signingConfigs {
@@ -41,8 +41,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Versions.javaVersion
+        targetCompatibility Versions.javaVersion
     }
     buildFeatures {
         dataBinding = true
@@ -55,37 +55,37 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Dependencies.kotlin_stdlib
-    implementation Dependencies.appcompat
-    implementation Dependencies.swipe_refresh_layout
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.AndroidX.swipeRefreshLayout
 
-    implementation Dependencies.material
-    implementation Dependencies.constraintlayout
-    implementation Dependencies.recycler_view
-    implementation Dependencies.card_view
-    implementation Dependencies.vector_drawable
-    implementation Dependencies.navigation_fragment
-    implementation Dependencies.navigation_ui
-    implementation Dependencies.navigation_fragment_ktx
-    implementation Dependencies.navigation_ui_ktx
-    implementation Dependencies.dynamic_animation
-//    implementation Dependencies.lifecycle_extensions
-//    implementation Dependencies.lifecycle_runtime
+    implementation Libs.AndroidX.material
+    implementation Libs.AndroidX.constraintLayout
+    implementation Libs.AndroidX.recyclerView
+    implementation Libs.AndroidX.cardView
+    implementation Libs.AndroidX.vectorDrawable
+    implementation Libs.AndroidX.navigationFragment
+    implementation Libs.AndroidX.navigationUi
+    implementation Libs.AndroidX.navigationFragmentKtx
+    implementation Libs.AndroidX.navigationUiKtx
+    implementation Libs.AndroidX.dynamicAnimation
+//    implementation Libs.lifecycle_extensions
+//    implementation Libs.lifecycle_runtime
 
-    implementation Dependencies.recycler_view_adapter_helper
+    implementation Libs.Helper.recyclerViewAdapterHelper
 
-    implementation Dependencies.hilt
-    kapt Dependencies.hilt_compiler
-    implementation Dependencies.hilt_viewmodel
-    kapt Dependencies.hilt_viewmodel_compiler
+    implementation Libs.Jetpack.hilt
+    kapt Libs.Jetpack.hiltCompiler
+    implementation Libs.Jetpack.hiltViewModel
+    kapt Libs.Jetpack.hiltViewModelCompiler
 
     if(useReleaseLib){
-        implementation Dependencies.score
-        implementation Dependencies.score_mvi
-        implementation Dependencies.view_binding_ext
-        implementation Dependencies.slin_dialog
-        implementation Dependencies.view_pager_indicator
-        implementation Dependencies.StateViewSwitcherScoreExt
+        implementation Libs.Slin.score
+        implementation Libs.Slin.scoreMvi
+        implementation Libs.Slin.viewBindingExt
+        implementation Libs.Slin.dialog
+        implementation Libs.Slin.viewPagerIndicator
+        implementation Libs.Slin.stateViewSwitcher
     } else {
         implementation project(path: ':SlinDialog')
         implementation project(path: ':ViewPagerIndicator')
@@ -96,8 +96,8 @@ dependencies {
     }
 
     //    test
-    testImplementation Dependencies.junit
-    androidTestImplementation Dependencies.junit_ext
-    androidTestImplementation Dependencies.espresso_core
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.Test.junitExt
+    androidTestImplementation Libs.Test.espressoCore
 
 }
