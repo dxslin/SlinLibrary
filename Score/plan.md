@@ -1,5 +1,5 @@
 ### Plan
 
-1. 移除Glide，差分成score-image-glide，新增coil作为图片加载框架
-2. 
+1. 拆分安卓和Java平台兼容库
+2. 拆分安卓xml开发和compose开发
 
