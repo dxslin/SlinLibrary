@@ -33,7 +33,7 @@ interface CoreComponentDependencies {
 
     fun imageLoader(): ImageLoader
 
-    @SCoreSharePreferencesQualifier
+    @SCorePreferenceQualifier
     fun coreSharedPreferences(): SharedPreferences
 
     fun gson(): Gson

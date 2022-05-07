@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+import com.slin.version.plugin.*
+
+apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
+
+android {
+    compileSdkVersion Versions.androidSdk
+    buildToolsVersion Versions.androidBuildTools
+
+    resourcePrefix "an_"
+
+    defaultConfig {
+        minSdkVersion Versions.androidMinSdk
+        targetSdkVersion Versions.androidSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility = Versions.javaVersion
+        targetCompatibility = Versions.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    flavorDimensions "functionality"
+    productFlavors{
+        full {
+            dimension "functionality"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.Kotlin.Coroutines.core
+    implementation Libs.Jetpack.lifecycleLivedataKtx
+    implementation Libs.Jetpack.lifecycleViewModelKtx
+    implementation Libs.AndroidX.appcompat
+
+    api project(path: ':Score')
+
+//    test
+    testImplementation Libs.Test.junit
+    androidTestImplementation Libs.Test.junitExt
+    androidTestImplementation Libs.Test.espressoCore
+
+}

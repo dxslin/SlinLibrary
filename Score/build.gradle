@@ -48,6 +48,7 @@ dependencies {
 //    api project(path: ':SateViewSwitcher')
 //    api 'com.github.dxslin.StudyKotlin:SateViewSwitcher:1.0'
     api Libs.Kotlin.stdlib
+    api Libs.Kotlin.reflect
     api Libs.Kotlin.Coroutines.core
 
     api Libs.AndroidX.appcompat

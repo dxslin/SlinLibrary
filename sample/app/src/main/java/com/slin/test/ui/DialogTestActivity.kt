@@ -3,17 +3,16 @@ package com.slin.test.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.slin.core.ui.CoreActivity
 import com.slin.dialog.SlinDialog
 import com.slin.dialog.core.BaseSlinDialog
 import com.slin.dialog.core.DialogViewHolder
 import com.slin.dialog.core.ViewHolder
 import com.slin.dialog.viewholder.ConfirmDialogViewHolder
+import com.slin.study.android.ext.ui.CoreActivity
 import com.slin.test.R
 import com.slin.test.databinding.ActivityDialogTestBinding
-import com.slin.viewbinding.viewBinding
 
-class DialogTestActivity : CoreActivity() {
+class DialogTestActivity : com.slin.study.android.ext.ui.CoreActivity() {
 
     private val binding: ActivityDialogTestBinding by viewBinding()
 

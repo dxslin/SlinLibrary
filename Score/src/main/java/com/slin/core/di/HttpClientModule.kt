@@ -34,20 +34,20 @@ object HttpClientModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-            builder: Retrofit.Builder,
-            @OkHttpClientQualifier
-            client: OkHttpClient,
-            gsonConverterFactory: GsonConverterFactory,
-            rxResultsCallAdapterFactory: RxResultsCallAdapterFactory,
-            resultsCallAdapterFactory: ResultsCallAdapterFactory,
-            config: CoreConfig,
+        builder: Retrofit.Builder,
+        @OkHttpClientQualifier
+        client: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory,
+        rxResultsCallAdapterFactory: RxResultsCallAdapterFactory,
+        resultsCallAdapterFactory: ResultsCallAdapterFactory,
+        config: CoreConfig,
     ): Retrofit {
         builder
-                .baseUrl(config.baseUrl)
-                .client(client)
-                .addConverterFactory(gsonConverterFactory)
-                .addCallAdapterFactory(rxResultsCallAdapterFactory)
-                .addCallAdapterFactory(resultsCallAdapterFactory)
+            .baseUrl(config.baseUrl)
+            .client(client)
+            .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(rxResultsCallAdapterFactory)
+            .addCallAdapterFactory(resultsCallAdapterFactory)
         config.applyRetrofitOptions?.apply(builder)
         return builder.build()
     }
@@ -56,16 +56,16 @@ object HttpClientModule {
     @Provides
     @OkHttpClientQualifier
     fun provideOkHttpClient(
-            okHttpClientBuilder: OkHttpClient.Builder,
-            loggingInterceptor: HttpLoggingInterceptor,
-            dispatcher: Dispatcher,
-            config: CoreConfig,
+        okHttpClientBuilder: OkHttpClient.Builder,
+        loggingInterceptor: HttpLoggingInterceptor,
+        dispatcher: Dispatcher,
+        config: CoreConfig,
     ): OkHttpClient {
         okHttpClientBuilder
-                .connectTimeout(config.timeOutSeconds, TimeUnit.SECONDS)
-                .readTimeout(config.timeOutSeconds, TimeUnit.SECONDS)
-                .dispatcher(dispatcher)
-                .addInterceptor(loggingInterceptor)
+            .connectTimeout(config.timeOutSeconds, TimeUnit.SECONDS)
+            .readTimeout(config.timeOutSeconds, TimeUnit.SECONDS)
+            .dispatcher(dispatcher)
+            .addInterceptor(loggingInterceptor)
         val interceptors = config.customInterceptors
         interceptors?.forEach {
             okHttpClientBuilder.addInterceptor(it)
@@ -93,11 +93,9 @@ object HttpClientModule {
 
     @Provides
     fun provideHttpLoggingInterceptor(coreConfig: CoreConfig): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                logd { "http: $message" }
-            }
-        }).apply {
+        return HttpLoggingInterceptor { message ->
+            logd { "http: $message" }
+        }.apply {
             level = coreConfig.httpLogLevel
         }
     }

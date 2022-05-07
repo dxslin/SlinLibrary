@@ -2,7 +2,7 @@ package com.slin.test.base
 
 import androidx.annotation.LayoutRes
 import androidx.viewbinding.ViewBinding
-import com.slin.core.ui.CoreFragment
+import com.slin.study.android.ext.ui.CoreFragment
 import com.slin.viewbinding.FragmentBindingDelegate
 
 
@@ -12,7 +12,8 @@ import com.slin.viewbinding.FragmentBindingDelegate
  * description:
  *
  */
-open class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) : CoreFragment(layoutId) {
+open class BaseFragment<VB : ViewBinding>(@LayoutRes layoutId: Int) :
+    com.slin.study.android.ext.ui.CoreFragment(layoutId) {
 
     protected val binding: VB by FragmentBindingDelegate()
 

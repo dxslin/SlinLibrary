@@ -2,14 +2,14 @@ package com.slin.git.di
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.slin.core.config.CoreConfig
 import com.slin.core.di.CoreComponentDependencies
 import com.slin.core.di.ImageOkHttpClientQualifier
 import com.slin.core.di.OkHttpClientQualifier
-import com.slin.core.di.SCoreSharePreferencesQualifier
+import com.slin.core.di.SCorePreferenceQualifier
 import com.slin.core.image.ImageLoader
+import com.slin.core.repository.Preference
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient
@@ -44,8 +44,8 @@ interface SCoreComponent {
 
     fun imageLoader(): ImageLoader
 
-    @SCoreSharePreferencesQualifier
-    fun coreSharedPreferences(): SharedPreferences
+    @SCorePreferenceQualifier
+    fun corePreference(): Preference
 
     fun gson(): Gson
 

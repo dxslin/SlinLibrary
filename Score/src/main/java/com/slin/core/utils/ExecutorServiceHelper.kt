@@ -22,17 +22,18 @@ object ExecutorServiceHelper {
     private val KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS
 
     val IOExecutor = newFixExecutorService()
+    val CacheExecutor = newCacheExecutorService()
 
-    fun newFixExecutorService(): ExecutorService {
+    private fun newFixExecutorService(): ExecutorService {
         return Executors.newFixedThreadPool(
-                NUMBER_OF_CORES,
-                DefaultThreadFactory(THREAD_TAG, false)
+            NUMBER_OF_CORES,
+            DefaultThreadFactory(THREAD_TAG, false)
         )
     }
 
-    fun newCacheExecutorService(): ExecutorService {
+    private fun newCacheExecutorService(): ExecutorService {
         return Executors.newCachedThreadPool(
-                DefaultThreadFactory(THREAD_TAG, false)
+            DefaultThreadFactory(THREAD_TAG, false)
         )
     }
 

@@ -1,7 +1,7 @@
 package com.slin.test.base
 
 import androidx.viewbinding.ViewBinding
-import com.slin.core.ui.CoreActivity
+import com.slin.study.android.ext.ui.CoreActivity
 import com.slin.viewbinding.ActivityBindingDelegate
 
 
@@ -11,7 +11,7 @@ import com.slin.viewbinding.ActivityBindingDelegate
  * description:
  *
  */
-open class BaseActivity<VB : ViewBinding> : CoreActivity() {
+open class BaseActivity<VB : ViewBinding> : com.slin.study.android.ext.ui.CoreActivity() {
 
     protected val binding by ActivityBindingDelegate<VB>()
 

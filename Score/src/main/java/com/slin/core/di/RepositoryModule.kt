@@ -2,7 +2,7 @@ package com.slin.core.di
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
+import com.slin.core.repository.Preference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,8 +26,8 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    @SCoreSharePreferencesQualifier
-    fun provideSharedPreferences(@SCoreApplicationQualifier application: Application): SharedPreferences {
+    @SCorePreferenceQualifier
+    fun provideSharedPreferences(@SCoreApplicationQualifier application: Application): Preference {
         return application.getSharedPreferences(DEFAULT_SHARE_PREFERENCES_TAG, Context.MODE_PRIVATE)
     }
 
@@ -37,4 +37,4 @@ object RepositoryModule {
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
-annotation class SCoreSharePreferencesQualifier
+annotation class SCorePreferenceQualifier
