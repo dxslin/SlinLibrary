@@ -1,4 +1,4 @@
-package com.slin.study.ui
+package com.slin.study.android.ui
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.slin.study.ui
+package com.slin.study.android.ui
 
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity

@@ -10,7 +10,7 @@ import com.slin.core.repository.Preference
  * @version 1.0.0
  * @since 2022/5/7
  */
-class SharePreference(private val preferences: SharedPreferences) : Preference,
+class PreferenceImpl(private val preferences: SharedPreferences) : Preference,
     SharedPreferences by preferences {
 
     override fun <V> put(key: String, value: V) {

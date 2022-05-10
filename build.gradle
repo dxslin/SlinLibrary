@@ -14,7 +14,6 @@ buildscript {
         classpath Libs.Kodein.kodein_jvm
         classpath Libs.Jetpack.hiltPlugin
         classpath Libs.Jetpack.protobufPlugin
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21'
     }
 }
 
