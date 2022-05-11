@@ -1,5 +1,7 @@
 package com.slin.core.repository
 
+import javax.inject.Qualifier
+
 /**
  * Preference
  *
@@ -15,3 +17,8 @@ interface Preference {
 
 
 }
+
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SCorePreferenceQualifier

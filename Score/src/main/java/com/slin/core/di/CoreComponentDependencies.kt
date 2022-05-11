@@ -1,9 +1,10 @@
 package com.slin.core.di
 
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.slin.core.config.CoreConfig
 import com.slin.core.image.ImageLoader
+import com.slin.core.repository.Preference
+import com.slin.core.repository.SCorePreferenceQualifier
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -34,7 +35,7 @@ interface CoreComponentDependencies {
     fun imageLoader(): ImageLoader
 
     @SCorePreferenceQualifier
-    fun coreSharedPreferences(): SharedPreferences
+    fun coreSharedPreference(): Preference
 
     fun gson(): Gson
 

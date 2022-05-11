@@ -1,14 +1,15 @@
-package com.slin.core.di
+package com.slin.study.android.di
 
 import android.app.Application
 import android.content.Context
+import com.slin.core.di.SCoreApplicationQualifier
 import com.slin.core.repository.Preference
+import com.slin.core.repository.SCorePreferenceQualifier
 import com.slin.study.android.preference.PreferenceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 
@@ -40,7 +41,3 @@ object RepositoryModule {
 
 }
 
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class SCorePreferenceQualifier

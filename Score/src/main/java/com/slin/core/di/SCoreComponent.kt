@@ -1,15 +1,12 @@
-package com.slin.git.di
+package com.slin.core.di
 
 import android.app.Application
 import android.content.Context
 import com.google.gson.Gson
 import com.slin.core.config.CoreConfig
-import com.slin.core.di.CoreComponentDependencies
-import com.slin.core.di.ImageOkHttpClientQualifier
-import com.slin.core.di.OkHttpClientQualifier
-import com.slin.core.di.SCorePreferenceQualifier
 import com.slin.core.image.ImageLoader
 import com.slin.core.repository.Preference
+import com.slin.core.repository.SCorePreferenceQualifier
 import dagger.BindsInstance
 import dagger.Component
 import okhttp3.OkHttpClient

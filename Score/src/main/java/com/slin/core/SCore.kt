@@ -3,9 +3,9 @@ package com.slin.core
 //import com.slin.git.di.CoreComponent
 import android.app.Application
 import com.slin.core.di.CoreComponentDependencies
+import com.slin.core.di.SCoreComponent
 import com.slin.core.logger.initLogger
 import com.slin.git.di.DaggerSCoreComponent
-import com.slin.git.di.SCoreComponent
 import dagger.hilt.android.EntryPointAccessors
 
 /**

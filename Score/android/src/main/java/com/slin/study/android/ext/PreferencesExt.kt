@@ -1,4 +1,4 @@
-package com.slin.core.ext
+package com.slin.study.android.ext
 
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty
