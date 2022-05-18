@@ -11,7 +11,7 @@ apply from: "../../ConfigProperties.gradle"
 import com.slin.version.plugin.*
 
 //是否使用Release Lib
-def useReleaseLib = false
+def useReleaseLib = true
 
 android {
     signingConfigs {
@@ -85,6 +85,7 @@ dependencies {
         implementation Libs.Slin.viewBindingExt
         implementation Libs.Slin.dialog
         implementation Libs.Slin.stateViewSwitcher
+        implementation Libs.Slin.stateViewSwitcherExt
     } else {
         implementation project(path: ':SlinDialog')
         implementation project(path: ':Score')

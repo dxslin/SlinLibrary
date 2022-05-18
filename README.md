@@ -5,24 +5,24 @@
 
 | library  |  引用  |  简介  |
 |---|---|---|
-|  [Score](./Score) |  com.github.dxslin.SlinLibrary:Score:1.0.0  |  封装的Android开发核心库（jetpack套件） |
-|  [ViewBindingExt](./ViewBindingExt) |  com.github.dxslin.SlinLibrary:ViewBindingExt:1.0.0   |  ViewBinding扩展方法，快速创建绑定  |
-|  [SlinDialog](./SlinDialog) |  com.github.dxslin.SlinLibrary:SlinDialog:1.0.0   |  一个封装了的DialogFragment  |
-|  [ViewPagerIndicator(已废弃)](ViewPagerIndicator) |  com.github.dxslin.SlinLibrary:ViewPagerIndicator:1.0.0   |  仿BiliBili的一个tab指示器  |
+|  [Score](./Score) |  io.github.dxslin:Score:1.0.0  |  封装的Android开发核心库（jetpack套件） |
+|  [ViewBindingExt](./ViewBindingExt) |  io.github.dxslin:ViewBindingExt:1.0.0   |  ViewBinding扩展方法，快速创建绑定  |
+|  [SlinDialog](./SlinDialog) |  io.github.dxslin:SlinDialog:1.0.0   |  一个封装了的DialogFragment  |
+|  [ViewPagerIndicator(已废弃)](ViewPagerIndicator) |  io.github.dxslin:ViewPagerIndicator:1.0.0   |  仿BiliBili的一个tab指示器  |
 
 ### 使用方法：
 
-1. 使用前请在你的build.gradle添加 `maven { url 'https://jitpack.io' }`，比如
+1. 使用前请在你的build.gradle添加 `mavenCentral()`，比如
 ```
 allprojects {
     repositories {
         ...
-        maven { url 'https://jitpack.io' }
+        mavenCentral()
     }
 }
 ```
 
 2. 然后根据需要添加依赖，比如
 ```
-implementation 'com.github.dxslin:SlinDialog:1.0.0 '
+implementation 'io.github.dxslin:Score:1.0.0 '
 ```

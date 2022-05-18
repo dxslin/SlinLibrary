@@ -20,7 +20,7 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:$agpVersion"
 
     object Slin {
-        private const val slinLibraryVersion = "1.1.3"
+        private const val slinLibraryVersion = "1.1.4"
 
         const val score = "io.github.dxslin:Score:${slinLibraryVersion}"
         const val scoreMvi = "io.github.dxslin:Score-mvi:${slinLibraryVersion}"
@@ -30,6 +30,8 @@ object Libs {
             "io.github.dxslin:SlinDialog:${slinLibraryVersion}"
         const val stateViewSwitcher =
             "io.github.dxslin:StateViewSwitcher:${slinLibraryVersion}"
+        const val stateViewSwitcherExt =
+            "io.github.dxslin:StateViewSwitcher_score-ext:${slinLibraryVersion}"
     }
 
     object Kotlin {
