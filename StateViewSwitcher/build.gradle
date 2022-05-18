@@ -38,7 +38,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation Libs.Kotlin.stdlib
-    implementation Libs.AndroidX.core
     implementation Libs.AndroidX.appcompat
     implementation Libs.Jetpack.lifecycleViewModelKtx
 

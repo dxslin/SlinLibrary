@@ -17,13 +17,11 @@
             <option value="$PROJECT_DIR$/StateViewSwitcher" />
             <option value="$PROJECT_DIR$/StateViewSwitcher/score-ext" />
             <option value="$PROJECT_DIR$/ViewBindingExt" />
-            <option value="$PROJECT_DIR$/ViewPagerIndicator" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/sample/app" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

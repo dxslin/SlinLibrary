@@ -17,7 +17,7 @@ object FileUtils {
      */
     fun getCacheFile(context: Context): File {
         return if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-            var file: File? = null
+            var file: File?
             file = context.externalCacheDir //获取系统管理的sd卡缓存文件
             if (file == null) { //如果获取的文件为空,就使用自己定义的缓存文件夹做缓存路径
                 file = File(getCacheFilePath(context))

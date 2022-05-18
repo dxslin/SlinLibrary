@@ -2,9 +2,9 @@ package com.slin.viewbinding
 
 import android.app.Activity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.ParameterizedType
 import kotlin.properties.ReadOnlyProperty
@@ -100,9 +100,9 @@ class FragmentBindingDelegate<VB : ViewBinding>(
     @Suppress("UNCHECKED_CAST")
     override fun getValue(thisRef: Fragment, property: KProperty<*>): VB {
         if (!isInitialized) {
-            thisRef.viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                fun onDestroyView() {
+            thisRef.viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+                override fun onDestroy(owner: LifecycleOwner) {
+                    super.onDestroy(owner)
                     _binding = null
                 }
             })

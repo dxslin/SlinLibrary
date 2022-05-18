@@ -33,7 +33,6 @@ dependencies {
     compileOnly project(path: ':Score')
 
     implementation Libs.Kotlin.stdlib
-    implementation Libs.AndroidX.core
 }
 repositories {
     mavenCentral()

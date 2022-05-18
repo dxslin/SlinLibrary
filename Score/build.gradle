@@ -57,8 +57,6 @@ dependencies {
     //hilt
     api Libs.Jetpack.hilt
     kapt Libs.Jetpack.hiltCompiler
-    api Libs.Jetpack.hiltViewModel
-    kapt Libs.Jetpack.hiltViewModelCompiler
 
     //DataStore & protobuf
     api Libs.Jetpack.dataStoreCore

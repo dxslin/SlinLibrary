@@ -1,5 +1,7 @@
 # ViewPagerIndicator
 
+### 已废弃
+
 仿BiliBili的一个tab指示器
 
 效果图：

@@ -1,5 +1,4 @@
 include ':SlinDialog'
-include ':ViewPagerIndicator'
 include ':Score'
 include ':StateViewSwitcher'
 include ':ViewBindingExt'

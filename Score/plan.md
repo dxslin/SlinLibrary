@@ -1,5 +1,11 @@
 ### Plan
 
-1. 移除Glide，差分成score-image-glide，新增coil作为图片加载框架
-2. 
+1. 拆分安卓和Jvm平台兼容库
+2. 拆分安卓xml开发和compose开发
+3. 方案： https://github.com/arkivanov/Kotlin-Multiplatform-Libraries
+   1. 依赖注入：kodein
+   2. 网络框架：ktor
+   3. k-v存储：multiplatform-settings
+   4. 图片：korim
+   5. 日志：
 

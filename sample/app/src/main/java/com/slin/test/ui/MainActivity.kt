@@ -24,11 +24,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val testActivities = arrayListOf(
         TestActivityBean(DialogTestActivity::class.java, "SlinDialog", R.mipmap.img_timeout),
-        TestActivityBean(
-            IndicatorTestActivity::class.java,
-            "ViewPagerIndicator",
-            R.mipmap.img_empty
-        ),
         TestActivityBean(SvsTestFragment::class.java, "SateViewSwitcher", R.mipmap.img_cartoon_1),
         TestActivityBean(TestMviFragment::class.java, "TestMvi", R.mipmap.img_cartoon_2),
     )

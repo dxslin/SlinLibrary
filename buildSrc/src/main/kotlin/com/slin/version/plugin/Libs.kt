@@ -28,8 +28,6 @@ object Libs {
             "io.github.dxslin:ViewBindingExt:${slinLibraryVersion}"
         const val dialog =
             "io.github.dxslin:SlinDialog:${slinLibraryVersion}"
-        const val viewPagerIndicator =
-            "io.github.dxslin:ViewPagerIndicator:${slinLibraryVersion}"
         const val stateViewSwitcher =
             "io.github.dxslin:StateViewSwitcher:${slinLibraryVersion}"
     }
@@ -115,7 +113,7 @@ object Libs {
          * https://dagger.dev/hilt/gradle-setup
          * https://developer.android.google.cn/jetpack/androidx/releases/hilt
          */
-        private const val hiltVersion = "2.38.1"
+        private const val hiltVersion = "2.42"
         private const val hiltViewModelVersion = "1.0.0-alpha03"
 
         /**

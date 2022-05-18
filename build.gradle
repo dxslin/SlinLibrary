@@ -11,7 +11,6 @@ buildscript {
     dependencies {
         classpath Libs.androidGradlePlugin
         classpath Libs.Kotlin.plugin
-        classpath Libs.Kodein.kodein_jvm
         classpath Libs.Jetpack.hiltPlugin
         classpath Libs.Jetpack.protobufPlugin
     }

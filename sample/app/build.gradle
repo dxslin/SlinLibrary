@@ -76,19 +76,17 @@ dependencies {
 
     implementation Libs.Jetpack.hilt
     kapt Libs.Jetpack.hiltCompiler
-    implementation Libs.Jetpack.hiltViewModel
-    kapt Libs.Jetpack.hiltViewModelCompiler
+//    implementation Libs.Jetpack.hiltViewModel
+//    kapt Libs.Jetpack.hiltViewModelCompiler
 
     if(useReleaseLib){
         implementation Libs.Slin.score
         implementation Libs.Slin.scoreMvi
         implementation Libs.Slin.viewBindingExt
         implementation Libs.Slin.dialog
-        implementation Libs.Slin.viewPagerIndicator
         implementation Libs.Slin.stateViewSwitcher
     } else {
         implementation project(path: ':SlinDialog')
-        implementation project(path: ':ViewPagerIndicator')
         implementation project(path: ':Score')
         implementation project(path: ':Score:mvi')
         implementation project(path: ':ViewBindingExt')
