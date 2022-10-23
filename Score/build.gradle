@@ -51,8 +51,6 @@ dependencies {
     api Libs.Kotlin.Coroutines.core
 
     api Libs.AndroidX.appcompat
-//    api Libs.lifecycle_extensions
-//    api Libs.lifecycle_runtime
 
     //hilt
     api Libs.Jetpack.hilt

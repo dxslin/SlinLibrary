@@ -10,16 +10,11 @@ import java.lang.reflect.ParameterizedType
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-
 /**
  * author: slin
  * date: 2021/1/27
  * description:
  *
- */
-
-
-/**
  * # Activity ViewBinding 委托
  *
  * [classTransformer] 将 [Class<VB>] 转化为对应的对象 VB，其默认值为 [GenericClassTransformer]，它会查找

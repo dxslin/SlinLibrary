@@ -16,7 +16,7 @@ object Versions {
 }
 
 object Libs {
-    private const val agpVersion = "7.1.1"
+    private const val agpVersion = "7.3.0"
     const val androidGradlePlugin = "com.android.tools.build:gradle:$agpVersion"
 
     object Slin {
@@ -28,10 +28,12 @@ object Libs {
             "io.github.dxslin:ViewBindingExt:${slinLibraryVersion}"
         const val dialog =
             "io.github.dxslin:SlinDialog:${slinLibraryVersion}"
+        const val viewPagerIndicator =
+            "io.github.dxslin:ViewPagerIndicator:${slinLibraryVersion}"
         const val stateViewSwitcher =
-            "io.github.dxslin:StateViewSwitcher:${slinLibraryVersion}"
+            "io.github.dxslin:StateViewSwitcher:1.1.3"
         const val stateViewSwitcherExt =
-            "io.github.dxslin:StateViewSwitcher_score-ext:${slinLibraryVersion}"
+            "io.github.dxslin:StateViewSwitcher_score-ext:1.1.3"
     }
 
     object Kotlin {
@@ -54,18 +56,16 @@ object Libs {
      */
     object AndroidX {
 
-        private const val coreVersion = "1.7.0"
-        private const val appcompatVersion = "1.4.1"
-        private const val materialVersion = "1.5.0"
-        private const val constraintLayoutVersion = "2.1.3"
+        private const val appcompatVersion = "1.5.1"
+        private const val materialVersion = "1.6.0"
+        private const val constraintLayoutVersion = "2.1.4"
         private const val vectorDrawableVersion = "1.1.0"
-        private const val navigationVersion = "2.4.2"
+        private const val navigationVersion = "2.5.2"
         private const val dynamicAnimationVersion = "1.0.0"
         private const val swipeRefreshLayoutVersion = "1.2.0-alpha01"
         private const val recyclerViewVersion = "1.2.1"
         private const val cardViewVersion = "1.0.0"
 
-        const val core = "androidx.core:core-ktx:${coreVersion}"
         const val appcompat = "androidx.appcompat:appcompat:${appcompatVersion}"
         const val material = "com.google.android.material:material:${materialVersion}"
         const val constraintLayout =
@@ -99,17 +99,17 @@ object Libs {
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
          */
-        private const val lifecycleVersion = "2.2.0"
+        private const val lifecycleVersion = "2.5.1"
 
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/room
          */
-        private const val roomVersion = "2.2.5"
+        private const val roomVersion = "2.4.3"
 
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/paging
          */
-        private const val pagingVersion = "3.0.0-alpha05"  //3.0.0-alpha05
+        private const val pagingVersion = "3.1.1"  //3.0.0-alpha05
 
         /**
          * https://dagger.dev/hilt/gradle-setup
@@ -134,8 +134,6 @@ object Libs {
          */
         private const val startup_version = "1.1.1"
 
-        const val lifecycleExtensions =
-            "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}"
         const val lifecycleRuntime =
             "androidx.lifecycle:lifecycle-runtime:${lifecycleVersion}"
         const val lifecycleLivedataKtx =
@@ -153,11 +151,12 @@ object Libs {
 
         const val hilt = "com.google.dagger:hilt-android:${hiltVersion}"
         const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${hiltVersion}"
+        const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:$hiltVersion"
+        const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${hiltVersion}"
         const val hiltViewModel =
             "androidx.hilt:hilt-lifecycle-viewmodel:${hiltViewModelVersion}"
         const val hiltViewModelCompiler =
             "androidx.hilt:hilt-compiler:${hiltViewModelVersion}"
-        const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${hiltVersion}"
 
         const val dataStoreCore = "androidx.datastore:datastore-core:${dataStoreVersion}"
         const val dataStorePreferences =
@@ -251,7 +250,7 @@ object Libs {
          * 一些Kotlin可以使用的工具方法
          * https://github.com/DylanCaiCoding/Longan
          */
-        private const val longanVersion = "1.0.3"
+        private const val longanVersion = "1.1.1"
         const val longan = "com.github.DylanCaiCoding.Longan:longan:${longanVersion}"
         const val longanDesign = "com.github.DylanCaiCoding.Longan:longan-design:${longanVersion}"
 
