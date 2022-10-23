@@ -5,7 +5,7 @@ import org.gradle.api.JavaVersion
 object Versions {
 
 
-    const val androidSdk = 31
+    const val androidSdk = 32
     const val androidBuildTools = "30.0.3"
     const val androidMinSdk = 24
 
@@ -20,7 +20,7 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:$agpVersion"
 
     object Slin {
-        private const val slinLibraryVersion = "1.1.4"
+        private const val slinLibraryVersion = "1.1.5"
 
         const val score = "io.github.dxslin:Score:${slinLibraryVersion}"
         const val scoreMvi = "io.github.dxslin:Score-mvi:${slinLibraryVersion}"
