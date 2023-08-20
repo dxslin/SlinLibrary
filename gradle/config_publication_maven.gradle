@@ -125,7 +125,7 @@ if (helper.isCheckPass) {
         //对每个输出进行签名
         if (!helper.isSkipSignature()) {
             signing {
-//                sign publishing.publications
+                sign publishing.publications
             }
         }
 
