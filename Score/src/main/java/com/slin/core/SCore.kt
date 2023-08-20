@@ -30,7 +30,7 @@ import dagger.hilt.android.EntryPointAccessors
  * module目录build.gradle添加：
  * ```groovy
  * plugins {
- *      id 'kotlin-kapt'
+ *      id 'org.jetbrains.kotlin.kapt'
  *      id 'dagger.hilt.android.plugin'
  * }
  * ```
@@ -87,6 +87,11 @@ object SCore {
     lateinit var coreComponent: SCoreComponent
 
 
+    /**
+     * 初始化
+     * @param application Application Context
+     * @param debug is debug mode, if true, print log
+     */
     fun init(application: Application, debug: Boolean = BuildConfig.DEBUG) {
         this.application = application
         this.debug = debug

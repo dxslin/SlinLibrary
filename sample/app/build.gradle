@@ -1,8 +1,8 @@
 
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -11,19 +11,11 @@ apply from: "../../ConfigProperties.gradle"
 import com.slin.version.plugin.*
 
 //是否使用Release Lib
-def useReleaseLib = true
+def useReleaseLib = false
 
 android {
-    signingConfigs {
-        release {
-            storeFile rootProject.file(configProperty('sign_file'))
-            storePassword configProperty('store_password')
-            keyAlias = configProperty('key_alias')
-            keyPassword configProperty('key_password')
-        }
-    }
-    compileSdkVersion Versions.androidSdk
-    buildToolsVersion Versions.androidBuildTools
+    namespace 'com.slin.test'
+    compileSdk Versions.androidSdk
     defaultConfig {
         applicationId "com.slin.slindialog"
         minSdkVersion Versions.androidMinSdk
@@ -31,6 +23,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile rootProject.file(configProperty('sign_file'))
+            storePassword configProperty('store_password')
+            keyAlias = configProperty('key_alias')
+            keyPassword configProperty('key_password')
+        }
     }
     buildTypes {
         release {
@@ -41,13 +42,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility Versions.javaVersion
-        targetCompatibility Versions.javaVersion
+        sourceCompatibility Versions.sampleJavaVersion
+        targetCompatibility Versions.sampleJavaVersion
+    }
+    kotlinOptions {
+        jvmTarget = Versions.libJavaVersion
     }
     buildFeatures {
         dataBinding = true
         //如果使用dataBinding的话，只设置dataBinding的话不会自动生成对应的binding文件，需要编译才行，因此添加此设置
         viewBinding = true
+        buildConfig = true
     }
 
 }

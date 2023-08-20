@@ -21,7 +21,7 @@ class SlinLibraryApplication : Application() {
         super.onCreate()
 
         SCore.init(this)
-        SCore.initLogger(BuildConfig.DEBUG)
+        SCore.initLogger(BuildConfig.DEBUG, "Sample")
         StateViewSwitcher.config(CoreStateViewFactory())
 
     }

@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
 
 import com.slin.version.plugin.*
@@ -8,8 +8,7 @@ import com.slin.version.plugin.*
 apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
 
 android {
-    compileSdkVersion Versions.androidSdk
-    buildToolsVersion Versions.androidBuildTools
+    compileSdk Versions.androidSdk
 
     resourcePrefix "vb"
 
@@ -30,11 +29,20 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    flavorDimensions "functionality"
-    productFlavors{
+    flavorDimensions = ["functionality"]
+    productFlavors {
         full {
             dimension "functionality"
         }
+    }
+    namespace 'com.slin.viewbinding'
+
+    compileOptions {
+        sourceCompatibility Versions.libJavaVersion
+        targetCompatibility Versions.libJavaVersion
+    }
+    kotlinOptions {
+        jvmTarget = Versions.libJavaVersion
     }
 }
 

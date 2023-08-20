@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import com.slin.core.net.Errors
 import com.slin.svs.DefaultStateView
 import com.slin.svs.StateView
-
+import com.slin.svs.R
 
 /**
  * author: slin

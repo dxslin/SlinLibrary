@@ -40,7 +40,7 @@ fun ImageLoader.load(
         url: String,
         placeholder: Drawable? = ContextCompat.getDrawable(
                 imageView.context,
-                R.drawable.ic_image_loader_placeholder
+                R.drawable.core_ic_image_loader_placeholder
         ),
         errorImage: Drawable? = null,
         width: Int = ImageConfigImpl.SIZE_ORIGINAL,

@@ -5,8 +5,7 @@ import com.slin.version.plugin.*
 apply from: "${rootProject.rootDir.path}/gradle/config_publication_maven.gradle"
 
 android {
-    compileSdkVersion Versions.androidSdk
-    buildToolsVersion Versions.androidBuildTools
+    compileSdk Versions.androidSdk
     defaultConfig {
         minSdkVersion Versions.androidMinSdk
         targetSdkVersion Versions.androidSdk
@@ -16,8 +15,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility Versions.libJavaVersion
+        targetCompatibility Versions.libJavaVersion
     }
 
     buildTypes {
@@ -26,12 +25,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    flavorDimensions "functionality"
+    flavorDimensions = ["functionality"]
     productFlavors{
         full {
             dimension "functionality"
         }
     }
+    namespace 'com.slin.dialog'
 }
 
 dependencies {

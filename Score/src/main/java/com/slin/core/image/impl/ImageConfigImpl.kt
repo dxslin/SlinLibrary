@@ -22,7 +22,7 @@ data class ImageConfigImpl(
         override val url: String,
         override val placeholder: Drawable? = ContextCompat.getDrawable(
                 imageView.context,
-                R.drawable.ic_image_loader_placeholder
+                R.drawable.core_ic_image_loader_placeholder
         ),
         override val errorImage: Drawable? = null,
         override val width: Int = SIZE_ORIGINAL,

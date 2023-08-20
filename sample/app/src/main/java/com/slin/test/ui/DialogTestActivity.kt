@@ -9,7 +9,7 @@ import com.slin.dialog.core.BaseSlinDialog
 import com.slin.dialog.core.DialogViewHolder
 import com.slin.dialog.core.ViewHolder
 import com.slin.dialog.viewholder.ConfirmDialogViewHolder
-import com.slin.test.R
+import com.slin.dialog.R
 import com.slin.test.databinding.ActivityDialogTestBinding
 import com.slin.viewbinding.viewBinding
 

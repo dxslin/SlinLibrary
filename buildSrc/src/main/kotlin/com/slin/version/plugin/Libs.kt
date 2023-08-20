@@ -5,18 +5,19 @@ import org.gradle.api.JavaVersion
 object Versions {
 
 
-    const val androidSdk = 32
+    const val androidSdk = 33
     const val androidBuildTools = "30.0.3"
     const val androidMinSdk = 24
 
-    val javaVersion = JavaVersion.VERSION_1_8
+    val sampleJavaVersion = JavaVersion.VERSION_17
+    val libJavaVersion = JavaVersion.VERSION_17
 
     const val ktlint = "0.40.0"
 
 }
 
 object Libs {
-    private const val agpVersion = "7.3.0"
+    private const val agpVersion = "8.1.0"
     const val androidGradlePlugin = "com.android.tools.build:gradle:$agpVersion"
 
     object Slin {
@@ -36,14 +37,18 @@ object Libs {
             "io.github.dxslin:StateViewSwitcher_score-ext:1.1.3"
     }
 
-    object Kotlin {
-        private const val kotlin_version = "1.6.21"
+    object Kotlin {        /**
+     * https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin
+     */
+        private const val kotlin_version = "1.8.22"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
         const val plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+        const val dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.8.10"
+        const val kapt = "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:${kotlin_version}"
 
         object Coroutines {
-            private const val version = "1.6.1"
+            private const val version = "1.7.1"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -99,12 +104,12 @@ object Libs {
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
          */
-        private const val lifecycleVersion = "2.5.1"
+        private const val lifecycleVersion = "2.6.1"
 
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/room
          */
-        private const val roomVersion = "2.4.3"
+        private const val roomVersion = "2.5.0"
 
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/paging
@@ -115,8 +120,8 @@ object Libs {
          * https://dagger.dev/hilt/gradle-setup
          * https://developer.android.google.cn/jetpack/androidx/releases/hilt
          */
-        private const val hiltVersion = "2.42"
-        private const val hiltViewModelVersion = "1.0.0-alpha03"
+        private const val hiltVersion = "2.47"
+        private const val hiltViewModelVersion = "1.0.0"
 
         /**
          * https://developer.android.google.cn/jetpack/androidx/releases/datastore
@@ -126,7 +131,7 @@ object Libs {
         /**
          * https://github.com/google/protobuf-gradle-plugin/
          */
-        private const val protobufPluginVersion = "0.8.18"
+        private const val protobufPluginVersion = "0.9.3"
         private const val protobufVersion = "3.10.0"
 
         /**
@@ -156,7 +161,7 @@ object Libs {
         const val hiltViewModel =
             "androidx.hilt:hilt-lifecycle-viewmodel:${hiltViewModelVersion}"
         const val hiltViewModelCompiler =
-            "androidx.hilt:hilt-compiler:${hiltViewModelVersion}"
+            "androidx.hilt:hilt-compiler:${hiltVersion}"
 
         const val dataStoreCore = "androidx.datastore:datastore-core:${dataStoreVersion}"
         const val dataStorePreferences =
@@ -232,7 +237,7 @@ object Libs {
 
     //test
     object Test {
-        private const val junitVersion = "4.12"
+        private const val junitVersion = "4.13"
         private const val junitExtVersion = "1.1.2"
         private const val espressoCoreVersion = "3.2.0"
 

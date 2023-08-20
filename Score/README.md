@@ -18,7 +18,7 @@
  module目录build.gradle添加hilt插件：
  ```groovy
  plugins {
-      id 'kotlin-kapt'
+      id 'org.jetbrains.kotlin.kapt'
       id 'dagger.hilt.android.plugin'
  }
  ```

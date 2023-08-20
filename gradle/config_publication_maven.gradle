@@ -1,29 +1,36 @@
 //参考 https://github.com/rain9155/MavenPublishScript
 def helper = new Helper(project)
 
-if(helper.isCheckPass){
+if (helper.isCheckPass) {
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
-    tasks.withType(Javadoc) {
+    if (helper.hasKotlin()) {
+        /**
+         * Must add `classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.8.20"` in root build.gradle
+         */
+        apply plugin: "org.jetbrains.dokka"
+    }
+
+    tasks.withType(Javadoc).configureEach {
         options.addStringOption('Xdoclint:none', '-quiet')
         options.addStringOption('encoding', 'utf-8')
         options.addStringOption('charSet', 'utf-8')
     }
 
-    if(helper.isJavaLibrary()){
-        java{
+    if (helper.isJavaLibrary()) {
+        java {
             withJavadocJar()
             withSourcesJar()
         }
     }
 
     //maven仓库地址
-    publishing.repositories{
+    publishing.repositories {
         maven {
             url = helper.getMavenUrl()
             helper.log "mavenUrl = ${url}"
-            if(!helper.isSkipCredential(url)){
+            if (!helper.isSkipCredential(url)) {
                 credentials {
                     def credentials = helper.getCredentials()
                     username credentials[0]
@@ -33,85 +40,99 @@ if(helper.isCheckPass){
         }
     }
 
-    //定义发布过程
-    publishing.publications{
-        if(helper.isAndroidLibrary()){
-            def isAGPGreaterEqual360 = helper.getAGPVersion() >= '3.6.0'
-            android.libraryVariants.all{variant ->
-                if('release' != variant.buildType.name){
-                    return
+    afterEvaluate {
+        //定义发布过程
+        publishing.publications {
+            if (helper.isAndroidLibrary()) {
+                def isAGPGreaterEqual360 = helper.getAGPVersion() >= '3.6.0'
+                android.libraryVariants.all { variant ->
+                    if ('release' != variant.buildType.name) {
+                        return
+                    }
+                    def flavorName = variant.flavorName
+                    def variantName = "${flavorName}Release"
+                    helper.log "variant = ${variantName}"
+                    "${flavorName}Androidlib"(MavenPublication) {
+                        //组件GVA坐标
+                        def gav = helper.getGAV(variant)
+                        groupId gav[0]
+                        artifactId gav[1]
+                        version gav[2]
+                        //要发布的产物
+                        artifact helper.createSourcesJar(variant)
+                        if (helper.hasKotlin()) {
+                            artifact helper.createDokkaJavadocJar(variant)
+                        } else {
+                            artifact helper.createJavadocJar(variant)
+                        }
+                        if (isAGPGreaterEqual360) {
+                            helper.log "componets: $components"
+                            if (!components.isEmpty()) {
+                                from components."${variantName}"
+                                helper.log "from components.$variantName"
+                            } else {
+                                helper.logError "Cannot find components.$variantName"
+                                artifact helper.getReleaseOutput(variant)
+                            }
+                        } else {
+                            artifact helper.getReleaseOutput(variant)
+                        }
+                        //要生成的pom文件
+                        helper.appendCommonInfoToPom(it, 'aar')
+                        if (!isAGPGreaterEqual360) {
+                            //生成组件的依赖关系
+                            helper.appendDependenciesToPom(variant, it)
+                        }
+                    }
                 }
-                def flavorName = variant.flavorName
-                def variantName = "${flavorName}Release"
-                helper.log "variant = ${variantName}"
-                "${flavorName}Androidlib"(MavenPublication) {
-                    //组件GVA坐标
-                    def gav = helper.getGAV(variant)
+            }
+
+            if (helper.isJavaLibrary()) {
+                "Javalib"(MavenPublication) {
+                    def gav = helper.getGAV(null)
                     groupId gav[0]
                     artifactId gav[1]
                     version gav[2]
-                    //要发布的产物
-                    artifact helper.createSourcesJar(variant)
-                    artifact helper.createJavadocJar(variant)
-                    if(isAGPGreaterEqual360){
-                        from components."${variantName}"
-                    }else{
-                        artifact helper.getReleaseOutput(variant)
-                    }
-                    //要生成的pom文件
-                    helper.appendCommonInfoToPom(it, 'aar')
-                    if(!isAGPGreaterEqual360){
-                        //生成组件的依赖关系
-                        helper.appendDependenciesToPom(variant, it)
+                    from components.java
+                    helper.appendCommonInfoToPom(it, 'jar')
+                }
+            }
+
+            if (helper.isPackLibrary()) {
+                String[] paths = helper.getArtifactPath()
+                helper.log "artifactPath = $paths"
+                paths.each { path ->
+                    def file = file(path)
+                    def lastDotIndex = file.name.lastIndexOf('.')
+                    if (lastDotIndex != -1) {
+                        def fileName = file.name.substring(0, lastDotIndex)
+                        def ext = file.name.substring(lastDotIndex + 1)
+                        "Pack${fileName.capitalize()}lib"(MavenPublication) {
+                            def gav = helper.getGAV(null)
+                            groupId gav[0]
+                            artifactId fileName
+                            version gav[2]
+                            artifact file
+                            helper.appendCommonInfoToPom(it, ext)
+                        }
+                    } else {
+                        helper.logError "artifactPath传入错误，必须要带扩展名：path = ${path}"
                     }
                 }
             }
         }
 
-        if(helper.isJavaLibrary()){
-            "Javalib"(MavenPublication) {
-                def gav = helper.getGAV()
-                groupId gav[0]
-                artifactId gav[1]
-                version gav[2]
-                from components.java
-                helper.appendCommonInfoToPom(it, 'jar')
+        //对每个输出进行签名
+        if (!helper.isSkipSignature()) {
+            signing {
+//                sign publishing.publications
             }
         }
 
-        if(helper.isPackLibrary()){
-            String[] paths = helper.getArtifactPath()
-            helper.log "artifactPath = $paths"
-            paths.each {path ->
-                def file = file(path)
-                def lastDotIndex = file.name.lastIndexOf('.')
-                if(lastDotIndex != -1){
-                    def fileName = file.name.substring(0, lastDotIndex)
-                    def ext = file.name.substring(lastDotIndex + 1)
-                    "Pack${fileName.capitalize()}lib"(MavenPublication) {
-                        def gav = helper.getGAV()
-                        groupId gav[0]
-                        artifactId fileName
-                        version gav[2]
-                        artifact file
-                        helper.appendCommonInfoToPom(it, ext)
-                    }
-                }else {
-                    helper.logError "artifactPath传入错误，必须要带扩展名：path = ${path}"
-                }
-            }
-        }
-    }
-
-    //对每个输出进行签名
-    if(!helper.isSkipSignature()){
-        signing {
-            sign publishing.publications
-        }
     }
 }
 
-class Helper{
+class Helper {
 
     private static def TAG = 'MavenPublishScript'
 
@@ -143,24 +164,24 @@ class Helper{
 
     def isCheckPass = false
 
-    Helper(Project p){
+    Helper(Project p) {
         this.project = p
         this.isCheckPass = check()
     }
 
-    static def isEmpty(String string){
+    static def isEmpty(String string) {
         return string == null || string.isEmpty()
     }
 
-    def isSkipSignature(){
+    def isSkipSignature() {
         return readBoolean(publishIsSkipSignature)
     }
 
-    def isSkipCredential(url){
+    def isSkipCredential(url) {
         return readBoolean(publishIsSkipCredential) || project.uri(url).scheme.toLowerCase() == 'file'
     }
 
-    def getMavenUrl(){
+    def getMavenUrl() {
         String tempReleaseUrl = readProperty(publishRepoReleaseUrl)
         String tempSnapshotsUrl = readProperty(publishRepoSnapshotUrl)
         def releasesRepoUrl = !tempReleaseUrl.isEmpty() ? tempReleaseUrl : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
@@ -168,20 +189,20 @@ class Helper{
         return readProperty(publishVersion).endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
     }
 
-    def getCredentials(){
+    def getCredentials() {
         def credentials = new String[2]
         credentials[0] = readProperty(ossrhUsername)
         credentials[1] = readProperty(ossrhPassword)
         return credentials
     }
 
-    def getGAV(variant){
+    def getGAV(variant) {
         def gav = new String[3]
         gav[0] = readProperty(publishGroupId)
         gav[2] = readProperty(publishVersion)
-        if(variant == null){
+        if (variant == null) {
             gav[1] = readProperty(publishArtifactId)
-        }else{
+        } else {
             gav[1] = (readProperty(publishIsAppendFavorName).isEmpty() || readBoolean(publishIsAppendFavorName))
                     ? (readProperty(publishArtifactId) + "-${variant.flavorName}")
                     : readProperty(publishArtifactId)
@@ -189,58 +210,79 @@ class Helper{
         return gav
     }
 
-    def getArtifactPath(){
+    def getArtifactPath() {
         String path = readProperty(publishArtifactPath)
         return path.split(';')
     }
 
-    def createSourcesJar(variant){
+    def createSourcesJar(variant) {
         def name
-        if(variant == null){
+        def flavorName = ""
+        if (variant == null) {
             name = 'sourcesJar'
-        }else{
-            def flavorName = variant.flavorName
+        } else {
+            flavorName = variant.flavorName
+            log "createSourcesJar flavorName: $flavorName"
             name = "${flavorName}${isEmpty(flavorName) ? 's' : 'S'}ourcesJar"
         }
-        return project.tasks.create(name, Jar){
-            archiveClassifier = 'sources'
+        log "createSourcesJar task name: $name"
+        return project.tasks.register(name, Jar) {
+            archiveClassifier = "$flavorName-sources"
             from getSrcDirs(variant)
             exclude "**/R.java", "**/BuildConfig.java"
+            dependsOn("generateMetadataFileFor${flavorName.capitalize()}AndroidlibPublication")
         }
     }
 
-    def createJavadocJar(variant){
+    def createJavadocJar(variant) {
         def name
-        if(variant == null){
+        if (variant == null) {
             name = 'javadocJar'
-        }else{
+        } else {
             def flavorName = variant.flavorName
             name = "${flavorName}${isEmpty(flavorName) ? 'j' : 'J'}avadocJar"
         }
         def javadoc = maybeCreateJavadoc(variant)
-        return project.tasks.create(name, Jar){
+        return project.tasks.register(name, Jar) {
             archiveClassifier = 'javadoc'
             dependsOn javadoc
             from javadoc.destinationDir
         }
     }
 
-    def getReleaseOutput(variant){
+    def createDokkaJavadocJar(variant) {
+        def name
+        if (variant == null) {
+            name = 'dokkaJavadocJar'
+        } else {
+            def flavorName = variant.flavorName
+            name = "${flavorName}${isEmpty(flavorName) ? 'd' : 'D'}okkaJavadocJar"
+        }
+        def dokkaJavadoc = maybeCreateDokkaJavadoc(variant)
+        return project.tasks.register(name, Jar) {
+            archiveClassifier = "javadoc"
+            dependsOn(dokkaJavadoc)
+            from dokkaJavadoc
+        }
+    }
+
+    def getReleaseOutput(variant) {
         def result = findBundle(variant)
-        if(result == null){
-            if(variant == null){
+        if (result == null) {
+            if (variant == null) {
                 result = "${project.buildDir}/libs/${project.getName()}.jar"
-            }else {
+            } else {
                 result = "${project.buildDir}/outputs/aar/${project.getName()}-${variant.flavorName}-release.aar"
             }
         }
+        log "getReleaseOutput result: $result"
         return result
     }
 
-    def appendCommonInfoToPom(publication, String ext){
+    def appendCommonInfoToPom(publication, String ext) {
         def closure = {
             pom {
-                if(ext != null && ext.isEmpty()){
+                if (ext != null && ext.isEmpty()) {
                     packaging = ext
                 }
                 //组件的基本信息
@@ -273,44 +315,44 @@ class Helper{
         closure.call()
     }
 
-    def appendDependenciesToPom(variant, publication){
+    def appendDependenciesToPom(variant, publication) {
         def closure = {
-            pom.withXml{
+            pom.withXml {
                 log 'appendDependenciesToPom...'
                 def dependenciesNode = asNode().appendNode('dependencies')
                 def runtimeClasspath = getRuntimeClasspath(variant)
                 def resolvedDependencies = [:]
                 //获取组件解析后的直接依赖
-                runtimeClasspath.resolvedConfiguration.firstLevelModuleDependencies.each{resolvedDependency ->
+                runtimeClasspath.resolvedConfiguration.firstLevelModuleDependencies.each { resolvedDependency ->
                     def group = resolvedDependency.moduleGroup
                     def name = resolvedDependency.moduleName
                     def version = resolvedDependency.moduleVersion
                     log "resolvedDependency = ${group}:${name}:${version}"
-                    if(version != 'unspecified'){
+                    if (version != 'unspecified') {
                         resolvedDependencies["${group}:${name}"] = version
                     }
                 }
                 def runtimeConfigurations = new HashSet<>()
                 resolveConfigurations([runtimeClasspath], runtimeConfigurations)
                 //把依赖写入pom文件
-                runtimeConfigurations.each{configuration ->
-                    configuration.dependencies.each{dependency ->
+                runtimeConfigurations.each { configuration ->
+                    configuration.dependencies.each { dependency ->
                         def group = dependency.group
                         def name = dependency.name
                         def version = dependency.version
                         def configurationName = configuration.name.toLowerCase()
                         log "dependency = ${configurationName} ${group}:${name}:${version}"
                         String key = "${group}:${name}"
-                        if(resolvedDependencies.containsKey(key)){
+                        if (resolvedDependencies.containsKey(key)) {
                             def dependencyNode = dependenciesNode.appendNode('dependency')
                             dependencyNode.appendNode('groupId', group)
                             dependencyNode.appendNode('artifactId', name)
                             dependencyNode.appendNode('version', resolvedDependencies[key])
                             //避免重复写入依赖
                             resolvedDependencies.remove(key)
-                            if(configurationName.indexOf("implementation") != -1
+                            if (configurationName.indexOf("implementation") != -1
                                     || configurationName.indexOf("runtime") != -1
-                            ){
+                            ) {
                                 dependencyNode.appendNode("scope", "runtime")
                             } else {
                                 dependencyNode.appendNode("scope", "compile")
@@ -318,14 +360,14 @@ class Helper{
                             //写入依赖的exclude
                             def excludeRules = new HashSet(configuration.excludeRules)
                             excludeRules.addAll(dependency.excludeRules)
-                            if(configuration.transitive == false || dependency.transitive == false || excludeRules.size() > 0) {
+                            if (configuration.transitive == false || dependency.transitive == false || excludeRules.size() > 0) {
                                 def exclusionsNode = dependencyNode.appendNode('exclusions')
                                 if (configuration.transitive == false || dependency.transitive == false) {
                                     def exclusionNode = exclusionsNode.appendNode('exclusion')
                                     exclusionNode.appendNode('groupId', '*')
                                     exclusionNode.appendNode('artifactId', '*')
                                 } else {
-                                    for (def excludeRule: excludeRules) {
+                                    for (def excludeRule : excludeRules) {
                                         def exclusionNode = exclusionsNode.appendNode('exclusion')
                                         exclusionNode.appendNode('groupId', excludeRule.group == null ? '*' : excludeRule.group)
                                         exclusionNode.appendNode('artifactId', excludeRule.module == null ? '*' : excludeRule.module)
@@ -346,52 +388,63 @@ class Helper{
         def agpDependency = project.rootProject.buildscript?.configurations?.findByName(ScriptHandler.CLASSPATH_CONFIGURATION)?.incoming?.dependencies?.find {
             it.group == "com.android.tools.build" && it.name == "gradle"
         }
-        if(agpDependency != null){
+        if (agpDependency != null) {
             version = agpDependency.version
-        }else {
+        } else {
             Class<?> gradleVersionClazz = project.plugins.getPlugin('com.android.library').class.getClassLoader().loadClass('com.android.builder.model.Version')
             version = (String) gradleVersionClazz.getDeclaredField('ANDROID_GRADLE_PLUGIN_VERSION').get(null)
         }
         return version
     }
 
-    def isAndroidLibrary(){
+    def isAndroidLibrary() {
         return project.plugins.hasPlugin('com.android.library')
     }
 
-    def isJavaLibrary(){
+    def isJavaLibrary() {
         return project.plugins.hasPlugin('java-library') || project.plugins.hasPlugin('java')
     }
 
-    def isPackLibrary(){
+    def hasKotlin() {
+        return project.pluginManager.hasPlugin("org.jetbrains.kotlin.android") ||
+                project.pluginManager.hasPlugin("kotlin") ||
+                project.pluginManager.hasPlugin("kotlin-android")
+    }
+
+    def hasKapt() {
+        return project.pluginManager.hasPlugin("org.jetbrains.kotlin.kapt") ||
+                project.pluginManager.hasPlugin("kotlin-kapt")
+    }
+
+    def isPackLibrary() {
         return !readProperty(publishArtifactPath).isEmpty()
     }
 
-    def log(String msg){
+    def log(String msg) {
         project.logger.log(LogLevel.LIFECYCLE, "${TAG}: ${msg}")
     }
 
-    def logError(String msg){
+    def logError(String msg) {
         project.logger.log(LogLevel.ERROR, "${TAG}: ${msg}")
     }
 
-    def readProperty(String key){
+    def readProperty(String key) {
         return project.hasProperty(key) ? project[key] : ''
     }
 
-    def containProperty(String key){
+    def containProperty(String key) {
         return project.properties.containsKey(key)
     }
 
-    def readBoolean(String key){
+    def readBoolean(String key) {
         return readProperty(key).toLowerCase() == 'true'
     }
 
-    private def isSupportPublish(){
+    private def isSupportPublish() {
         return isAndroidLibrary() || isJavaLibrary() || isPackLibrary()
     }
 
-    private def getRuntimeClasspath(variant){
+    private def getRuntimeClasspath(variant) {
         def runtimeClasspath
         try {
             runtimeClasspath = variant.variantData.variantDependencies.runtimeClasspath
@@ -409,86 +462,128 @@ class Helper{
         }
     }
 
-    private def findBundle(variant){
+    private def findBundle(variant) {
         def bundle
-        if(variant == null){
+        if (variant == null) {
             bundle = project.tasks.findByName("jar")
-        }else{
+        } else {
             bundle = project.tasks.findByName("bundle${variant.flavorName.capitalize()}Release")
-            if(bundle == null){
+            if (bundle == null) {
                 bundle = project.tasks.findByName("bundle${variant.flavorName.capitalize()}ReleaseAar")
             }
         }
         return bundle
     }
 
-    private def maybeCreateJavadoc(variant){
+    private def maybeCreateJavadoc(variant) {
         def javadoc = project.tasks.findByName('javadoc')
-        if(javadoc != null){
+        if (javadoc != null) {
             return javadoc
-        }else{
+        } else {
             def name
-            if(variant == null){
+            if (variant == null) {
                 name = 'javadoc'
-            }else{
+            } else {
                 def flavorName = variant.flavorName
                 name = "${flavorName}${isEmpty(flavorName) ? 'j' : 'J'}avadoc"
             }
-            return project.tasks.create(name, Javadoc){
+            return project.tasks.register(name, Javadoc) {
                 failOnError false
                 source getSrcDirs(variant)
-                classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+                classpath += project.files(project.android.getBootClasspath())
                 classpath += getJavaClasspath(variant)
                 exclude '**/R.java', '**/BuildConfig.java'
-            }
+            }.get()
         }
     }
 
-    private def getJavaClasspath(variant){
+    private def maybeCreateDokkaJavadoc(variant) {
+        def dokkaJavadoc = project.tasks.findByName('dokkaJavadoc')
+        log("maybeCreateDokkaJavadoc dokkaJavadoc: $dokkaJavadoc")
+        if (hasKapt()) {
+            def buildType = variant.buildType.name.capitalize()
+            if (variant != null) {
+                def flavorName = variant.flavorName.capitalize()
+                dokkaJavadoc.dependsOn(project.tasks.named("kapt${flavorName}ReleaseKotlin"))
+                dokkaJavadoc.dependsOn(project.tasks.named("kapt${flavorName}DebugKotlin"))
+            } else {
+                dokkaJavadoc.dependsOn(project.tasks.named("kaptReleaseKotlin"))
+                dokkaJavadoc.dependsOn(project.tasks.named("kaptDebugKotlin"))
+            }
+        }
+        return dokkaJavadoc
+//        if (dokkaJavadoc != null) {
+//            return dokkaJavadoc
+//        } else {
+//            def name
+//            if (variant == null) {
+//                name = 'dokkaJavadoc'
+//            } else {
+//                def flavorName = variant.flavorName
+//                name = "${flavorName}${isEmpty(flavorName) ? 'd' : 'D'}okkaJavadoc"
+//            }
+//            return project.tasks.register(name, DokkaTask) {
+//                moduleName.set(project.name)
+//                moduleVersion.set(project.version.toString())
+//                outputDirectory.set(project.file("build/dokka/$name"))
+//                failOnWarning.set(false)
+//                suppressObviousFunctions.set(true)
+//                suppressInheritedMembers.set(false)
+//                offlineMode.set(false)
+//
+//                dokkaSourceSets.configureEach {
+//                    sourceRoots.addAll(getSrcDirs(variant))
+//                }
+//            }
+//        }
+    }
+
+    private def getJavaClasspath(variant) {
         def javaClasspath
         try {
             javaClasspath = variant.javaCompileProvider.get().classpath
-        }catch(Exception e){
+        } catch (Exception e) {
             logError "getJavaClasspath: e = ${e.message}"
             javaClasspath = variant.javaCompile.classpath
         }
         return javaClasspath
     }
 
-    private def getSrcDirs(variant){
-        def srcDirs
-        if(variant == null){
-            srcDirs = project.sourceSets.main.allSource
-        }else {
-            try {
-                srcDirs = variant.variantData.variantSources.sortedSourceProviders.collect {
-                    it.getJavaDirectories()
-                }
-            } catch (Exception e) {
-                logError "getSrcDirs: e = ${e.message}"
-                srcDirs = variant.variantData.javaSources.collect {
-                    it.getDir()
+    private def getSrcDirs(variant) {
+        log("getSrcDirs: variant = $variant")
+        def srcDirs = new HashSet<File>()
+        if (variant == null) {
+            srcDirs.addAll(project.sourceSets.main.java.srcDirs)
+            if (hasKotlin()) {
+                srcDirs.addAll(project.sourceSets.main.kotlin.srcDirs)
+            }
+        } else {
+            variant.getSourceSets().collect {
+                srcDirs.addAll(it.getJavaDirectories())
+                if (hasKotlin()) {
+                    srcDirs.addAll(it.getKotlinDirectories())
                 }
             }
-            if(srcDirs == null){
-                srcDirs = new HashSet<File>()
+
+            if (srcDirs.isEmpty()) {
                 srcDirs.addAll(project.android.sourceSets.main.java.srcDirs)
                 srcDirs.addAll(project.android.sourceSets.release.java.srcDirs)
-                if(!isEmpty(variant.flavorName)){
+                if (!isEmpty(variant.flavorName)) {
                     srcDirs.addAll(project.android.sourceSets."${variant.flavorName}".java.srcDirs)
                     srcDirs.addAll(project.android.sourceSets."${variant.flavorName}Release".java.srcDirs)
                 }
             }
+            log("srcDirs: $srcDirs")
         }
         return srcDirs
     }
 
-    private def loadLocalProperties(){
+    private def loadLocalProperties() {
         File localPropsFile = project.rootProject.file('local.properties')
         if (localPropsFile.exists()) {
             Properties props = new Properties()
             props.load(new FileInputStream(localPropsFile))
-            props.each {name, value ->
+            props.each { name, value ->
                 project.ext[name] = value
             }
             return true
@@ -497,87 +592,87 @@ class Helper{
         }
     }
 
-    private def check(){
-        if(!isSupportPublish()){
+    private def check() {
+        if (!isSupportPublish()) {
             logError '目前只支持android工程、java工程和pack打包的组件发布，暂不支持其他平台的组件发布'
             return false
         }
 
         def isOnlyPackLib = true
         def isPackLib = false
-        if(isPackLibrary()){
+        if (isPackLibrary()) {
             log '项目是一个pack工程'
             isPackLib = true
         }
 
-        if(isJavaLibrary()){
+        if (isJavaLibrary()) {
             log '项目是一个java工程'
             isOnlyPackLib = false
         }
 
-        if(isAndroidLibrary()){
+        if (isAndroidLibrary()) {
             log "项目是一个android工程"
             def version = getAGPVersion()
-            if(version < '3.0.0'){
+            if (version < '3.0.0') {
                 logError '请升级android gradle pulgin版本, 不支持3.0.0以下的版本'
                 return false
-            }else{
+            } else {
                 log "AGP version = ${version}"
             }
             isOnlyPackLib = false
         }
 
-        def gav = getGAV()
-        if(isPackLib && isOnlyPackLib){
-            if(isEmpty(gav[0])
+        def gav = getGAV(null)
+        if (isPackLib && isOnlyPackLib) {
+            if (isEmpty(gav[0])
                     || isEmpty(gav[2])
-            ){
+            ) {
                 logError '组件的GV不可以为空'
                 return false
-            }else{
+            } else {
                 log "GAV = ${gav[0]}:null:${gav[2]}"
             }
-        }else{
-            if(isEmpty(gav[0])
+        } else {
+            if (isEmpty(gav[0])
                     || isEmpty(gav[1])
                     || isEmpty(gav[2])
-            ){
+            ) {
                 logError '组件的GAV不可以为空'
                 return false
-            }else{
+            } else {
                 log "GAV = ${gav[0]}:${gav[1]}:${gav[2]}"
             }
         }
 
-        if(!loadLocalProperties()){
+        if (!loadLocalProperties()) {
             log '项目根目录下local.properties文件不存在'
         }
 
-        if(readBoolean(publishIsSkipSignature)){
+        if (readBoolean(publishIsSkipSignature)) {
             log '跳过签名校验'
-        }else{
-            if(!containProperty(signingKeyId)
+        } else {
+            if (!containProperty(signingKeyId)
                     || !containProperty(signingPassword)
                     || !containProperty(signingSecretKeyRingFile)
-            ){
+            ) {
                 logError 'gpg的签名信息不可以为空'
                 return false
-            }else{
+            } else {
                 log "signingKeyId = ${readProperty(signingKeyId)}"
                 log "signingPassword = ${readProperty(signingPassword)}"
                 log "signingSecretKeyRingFile = ${readProperty(signingSecretKeyRingFile)}"
             }
         }
 
-        if(readBoolean(publishIsSkipCredential)){
-           log '跳过账号校验'
-        }else{
-            if(!containProperty(ossrhUsername)
+        if (readBoolean(publishIsSkipCredential)) {
+            log '跳过账号校验'
+        } else {
+            if (!containProperty(ossrhUsername)
                     || !containProperty(ossrhPassword)
-            ){
+            ) {
                 logError 'ossrh的账号信息不可以为空'
                 return false
-            }else{
+            } else {
                 log "ossrhUsername = ${readProperty(ossrhUsername)}"
                 log "ossrhPassword = ${readProperty(ossrhPassword)}"
             }

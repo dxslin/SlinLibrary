@@ -81,9 +81,9 @@ class TestStateView : DefaultStateView() {
 
     override fun obtainFailDrawable(context: Context, throwable: Throwable?): Drawable? {
         return if (isNoNetwork(throwable)) {
-            ContextCompat.getDrawable(context, R.drawable.svs_ic_no_network)
+            ContextCompat.getDrawable(context, com.slin.svs.R.drawable.svs_ic_no_network)
         } else {
-            ContextCompat.getDrawable(context, R.drawable.svs_ic_load_fail)
+            ContextCompat.getDrawable(context, com.slin.svs.R.drawable.svs_ic_load_fail)
         }
     }
 
